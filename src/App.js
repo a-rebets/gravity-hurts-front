@@ -1,6 +1,9 @@
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
-import LoginPage from './views/LoginPage';
 import { fakeAuth } from './components/auth';
+import 'rsuite/lib/styles/themes/dark/index.less';
+import './styles/custom-theme.css';
+
+import LoginPage from './views/LoginPage';
 
 const Protected = () => <h3>Protected</h3>;
 

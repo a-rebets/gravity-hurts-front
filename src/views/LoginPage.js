@@ -103,6 +103,9 @@ const LoginPage = () => {
 									<div className='dot' key={i}></div>
 								))}
 							</div>
+							<p className='text-center pt-5'>
+								<em>Нажать ниже для ввода</em>
+							</p>
 							<Form
 								fluid
 								onChange={(val) => {

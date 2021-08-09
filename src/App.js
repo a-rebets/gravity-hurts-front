@@ -2,8 +2,7 @@ import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import useToken, { fakeAuth } from './components/auth';
 import './styles/custom-theme.less';
 import LoginPage from './views/LoginPage';
-
-const Protected = () => <h3>Protected</h3>;
+import HomePage from './views/HomePage';
 
 function PrivateRoute({ children, ...rest }) {
 	return (
@@ -34,7 +33,7 @@ export default function App() {
 				<LoginPage setToken={setToken} />
 			</Route>
 			<PrivateRoute path='/today'>
-				<Protected />
+				<HomePage />
 			</PrivateRoute>
 		</Router>
 	);

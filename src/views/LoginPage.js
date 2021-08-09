@@ -36,7 +36,6 @@ const LoginPage = ({ setToken }) => {
 	const [pinValue, setpinValue] = useState('');
 
 	const dotContainerRef = useRef(null);
-	const wrapperRef = useRef(null);
 
 	const { state } = useLocation();
 
@@ -100,7 +99,7 @@ const LoginPage = ({ setToken }) => {
 	}
 
 	return (
-		<Container ref={wrapperRef} className='wrapper h-full'>
+		<Container className='h-full'>
 			<Header className='py-10 px-4'>
 				<LoginBlob />
 				<h1 className='login-title'>Введи</h1>
@@ -115,7 +114,7 @@ const LoginPage = ({ setToken }) => {
 									<div className='dot' key={i}></div>
 								))}
 							</div>
-							<p className='text-center pt-5'>
+							<p className='text-center pt-7'>
 								<em>Нажать ниже для ввода</em>
 							</p>
 							<Form
@@ -140,7 +139,7 @@ const LoginPage = ({ setToken }) => {
 					</FlexboxGrid.Item>
 				</FlexboxGrid>
 			</Content>
-			<Footer className='py-4 text-center'>
+			<Footer className='py-5 text-center'>
 				<p>
 					Made with ❤️ by <a href='https://github.com/apopelyshev'>Artem</a>
 				</p>

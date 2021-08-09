@@ -1,9 +1,0 @@
-html,
-body,
-#root {
-	@apply h-full;
-}
-
-body {
-	@apply bg-transparent;
-}

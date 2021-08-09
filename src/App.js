@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { fakeAuth } from './components/auth';
-import './styles/custom-theme.css';
+import './styles/custom-theme.less';
 import LoginPage from './views/LoginPage';
 
 const Protected = () => <h3>Protected</h3>;

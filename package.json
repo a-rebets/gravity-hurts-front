@@ -16,9 +16,10 @@
 		"rsuite": "^4.10.2"
 	},
 	"devDependencies": {
+		"@tailwindcss/postcss7-compat": "^2.2.7",
 		"autoprefixer": "^9",
 		"postcss": "^7",
-		"tailwindcss": "^2.2.7",
+		"tailwindcss": "npm:@tailwindcss/postcss7-compat",
 		"typescript": "3.3.3"
 	},
 	"scripts": {

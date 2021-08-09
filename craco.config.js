@@ -1,0 +1,22 @@
+const CracoLessPlugin = require('craco-less');
+
+module.exports = {
+	style: {
+		postcss: {
+			plugins: [require('tailwindcss'), require('autoprefixer')],
+		},
+	},
+	plugins: [
+		{
+			plugin: CracoLessPlugin,
+			options: {
+				lessLoaderOptions: {
+					lessOptions: {
+						modifyVars: { '@base-color': '#00BCD4' },
+						javascriptEnabled: true,
+					},
+				},
+			},
+		},
+	],
+};

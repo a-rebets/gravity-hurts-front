@@ -1,11 +1,14 @@
-import React from 'react';
+import { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
+import './styles/index.css';
+import 'rsuite/lib/styles/themes/dark/index.less';
+import './styles/custom-theme.css';
 import App from './App';
 
 const rootElement = document.getElementById('root');
 ReactDOM.render(
-	<React.StrictMode>
+	<StrictMode>
 		<App />
-	</React.StrictMode>,
+	</StrictMode>,
 	rootElement
 );

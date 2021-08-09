@@ -1,0 +1,125 @@
+@firstColor: #00d69c;
+@secondColor: #c52afc;
+@thirdColor: #ff1f00;
+@fourthColor: #ffd600;
+@dropShadowColor: rgba(0, 0, 0, 0.5);
+@loginDotSize: 1.5em;
+
+body {
+	@apply bg-gray-800;
+
+	&.wrong {
+		animation: bg-red 0.8s ease-in;
+	}
+	&.correct {
+		animation: bg-green 0.8s ease-in;
+	}
+}
+
+.dots {
+	@apply w-full flex justify-around px-3 py-8;
+}
+.dot {
+	position: relative;
+	background: rgba(255, 255, 255, 0.2);
+	border-radius: @loginDotSize;
+	width: @loginDotSize;
+	height: @loginDotSize;
+	transform: scale3d(0.7, 0.7, 0.7);
+	&.active {
+		animation: growDot 0.5s ease;
+		animation-fill-mode: forwards;
+	}
+	&.wrong {
+		animation: wrong 0.7s ease;
+	}
+	&.correct {
+		animation: correct 0.7s ease;
+	}
+}
+
+input {
+	@apply h-64;
+	opacity: 0;
+}
+
+svg {
+	@apply w-48 h-48 -top-4 -left-4 z-0 absolute;
+	transform-origin: 50% 50%;
+	animation: move 24s ease-in-out infinite;
+}
+
+@keyframes move {
+	0% {
+		transform: scale(1) translate(0, 0) rotate(0);
+		fill: @firstColor;
+		filter: drop-shadow(20px 14px 10px @dropShadowColor);
+	}
+	25% {
+		transform: scale(0.8) translate(5vw, 8vh) rotate(55deg);
+		fill: @secondColor;
+		filter: drop-shadow(14px 14px 6px @dropShadowColor);
+	}
+	50% {
+		transform: scale(0.6) translate(17vw, 5vh) rotate(180deg);
+		fill: @thirdColor;
+		filter: drop-shadow(-16px -16px 16px @dropShadowColor);
+	}
+	75% {
+		transform: scale(0.8) translate(5vw, 8vh) rotate(55deg);
+		fill: @fourthColor;
+		filter: drop-shadow(14px 14px 6px @dropShadowColor);
+	}
+	100% {
+		transform: scale(1) translate(0, 0) rotate(0);
+		fill: @firstColor;
+		filter: drop-shadow(20px 14px 10px @dropShadowColor);
+	}
+}
+
+@keyframes bg-red {
+	50% {
+		@apply bg-red-600;
+	}
+}
+@keyframes bg-green {
+	50% {
+		@apply bg-green-500;
+	}
+}
+
+@keyframes growDot {
+	100% {
+		background: white;
+		transform: scale3d(0.9, 0.9, 0.9);
+	}
+}
+
+@keyframes wrong {
+	20% {
+		background: crimson;
+	}
+	40% {
+		transform: translate(-15px, 0);
+	}
+	60% {
+		transform: translate(10px, 0);
+	}
+	80% {
+		transform: translate(-5px, 0);
+	}
+}
+@keyframes correct {
+	20% {
+		background: limegreen;
+	}
+	40% {
+		transform: translate(0, -15px);
+	}
+	60% {
+		transform: translate(0, 10px);
+	}
+	80% {
+		transform: translate(0, -5px);
+	}
+}

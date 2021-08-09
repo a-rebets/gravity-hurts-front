@@ -1,20 +1,49 @@
-import { Container, Header, Content, Footer } from 'rsuite';
+import {
+	ButtonToolbar,
+	Container,
+	Header,
+	Icon,
+	IconButton,
+	Content,
+	Footer,
+} from 'rsuite';
 import WaterWave from 'react-water-wave';
 import waterLayerBg from '../../assets/bg.jpg';
+import { useRef } from 'react';
 
 const HomeStart = () => {
+	const storyCircleRef = useRef(null);
+
+	const handleStoryBtnClick = () => {
+		storyCircleRef.current.classList.toggle('clicked');
+	};
+
 	return (
-		<Container className='wrapper'>
-			<WaterWave className='water-layer' imageUrl={waterLayerBg}>
-				{(_) => (
-					<>
-						<Header></Header>
-						<Content></Content>
-						<Footer></Footer>
-					</>
-				)}
-			</WaterWave>
-		</Container>
+		<WaterWave className='water-layer' imageUrl={waterLayerBg}>
+			{(_) => (
+				<Container className='wrapper'>
+					<Header>
+						<h3 className='bg-gray-800 inline-block mt-10 py-2 px-4 bg-opacity-80'>
+							Привет, Поля 😊
+						</h3>
+					</Header>
+					<Content></Content>
+					<Footer className='flex justify-center p-6'>
+						<div ref={storyCircleRef} id='circle'>
+							<ButtonToolbar>
+								<IconButton
+									appearance='ghost'
+									size='lg'
+									circle
+									icon={<Icon icon='file-text' />}
+									onClick={handleStoryBtnClick}
+								/>
+							</ButtonToolbar>
+						</div>
+					</Footer>
+				</Container>
+			)}
+		</WaterWave>
 	);
 };
 

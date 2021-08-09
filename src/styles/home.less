@@ -8,9 +8,36 @@ body {
 }
 
 .wrapper {
-	@apply w-full h-full overflow-hidden absolute top-0 left-0;
+	@apply h-full relative;
 }
 
 .water-layer {
 	@apply h-full bg-cover;
+}
+
+#circle {
+	@apply rounded-full z-10 relative bg-white;
+	transform-style: preserve-3d;
+
+	&::before {
+		content: '';
+		@apply h-10 w-10 absolute inset-0 m-auto rounded-full transition duration-700 z-0;
+		box-shadow: 0 0 0 0vw #fff;
+		transform: translateZ(-10px);
+	}
+	&.clicked::before {
+		box-shadow: 0 0 0 200vw #fff;
+	}
+	&.clicked .rs-btn-icon {
+		transform: scale(0);
+	}
+
+	.rs-btn-icon {
+		@apply w-20 h-20 p-3 z-20 shadow-xl transition-transform scale-100 delay-300;
+
+		.rs-icon {
+			@apply w-20 h-20 text-4xl py-3;
+			line-height: 3.2rem;
+		}
+	}
 }

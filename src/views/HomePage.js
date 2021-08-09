@@ -1,21 +1,16 @@
-import { Container, Header, Content, Footer } from 'rsuite';
-import WaterWave from 'react-water-wave';
-import waterLayerBg from '../assets/bg.jpg';
+import SwipeableViews from 'react-swipeable-views';
+import HomeCountdown from '../components/home/HomeCountdown';
+import HomeStart from '../components/home/HomeStart';
 import '../styles/home.less';
 
 const HomePage = () => {
+	// drop(50, 100, 20, 0.04 + Math.random() * 0.04);
+
 	return (
-		<Container className='w-full h-full overflow-hidden absolute top-0 left-0 '>
-			<WaterWave className='water-layer' imageUrl={waterLayerBg}>
-				{(_) => (
-					<>
-						<Header></Header>
-						<Content></Content>
-						<Footer></Footer>
-					</>
-				)}
-			</WaterWave>
-		</Container>
+		<SwipeableViews resistance className='h-full'>
+			<HomeStart />
+			<HomeCountdown />
+		</SwipeableViews>
 	);
 };
 

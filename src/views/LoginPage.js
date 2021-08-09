@@ -21,7 +21,17 @@ const VALID_PASS = '111111';
 
 const { addClass, hasClass, removeClass } = DOMHelper;
 
-const LoginPage = () => {
+async function loginUser(credentials) {
+	return fetch('http://localhost:8080/login', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(credentials),
+	}).then((data) => data.json());
+}
+
+const LoginPage = ({ setToken }) => {
 	const [redirectToReferrer, setRedirectToReferrer] = useState(false);
 	const [pinValue, setpinValue] = useState('');
 
@@ -30,10 +40,15 @@ const LoginPage = () => {
 
 	const { state } = useLocation();
 
-	const login = () =>
-		fakeAuth.authenticate(() => {
-			setRedirectToReferrer(true);
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		const token = await loginUser({
+			user: process.ENV.APP_USER,
+			password: pinValue,
 		});
+		setToken(token);
+		setRedirectToReferrer(true);
+	};
 
 	const validatePin = (val) => {
 		if (val === VALID_PASS) {
@@ -88,11 +103,8 @@ const LoginPage = () => {
 		<Container ref={wrapperRef} className='wrapper h-full'>
 			<Header className='py-10 px-4'>
 				<LoginBlob />
-				<h1 className='z-10 relative ml-8 filter drop-shadow-md'>
-					Введи
-					<br />
-					свой пароль
-				</h1>
+				<h1 className='login-title'>Введи</h1>
+				<h1 className='login-title'>свой пароль</h1>
 			</Header>
 			<Content>
 				<FlexboxGrid justify='center' className='py-4'>

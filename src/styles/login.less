@@ -1,8 +1,8 @@
-@firstColor: #00d69c;
-@secondColor: #c52afc;
-@thirdColor: #ff1f00;
-@fourthColor: #ffd600;
-@dropShadowColor: rgba(0, 0, 0, 0.5);
+@firstColor: #00bfa5;
+@secondColor: #aa00ff;
+@thirdColor: #304ffe;
+@fourthColor: #0091ea;
+@dropShadowColor: rgba(0, 0, 0, 0.4);
 @loginDotSize: 1.5em;
 
 body {
@@ -44,9 +44,19 @@ input {
 }
 
 svg {
-	@apply w-52 h-52 -top-4 -left-4 z-0 absolute;
+	@apply w-60 h-60 -top-4 -left-5 z-0 absolute;
 	transform-origin: 50% 50%;
 	animation: move 24s ease-in-out infinite;
+}
+
+.login-title {
+	@apply z-10 relative ml-8 filter drop-shadow-md;
+	-webkit-animation: floating-text 2s ease alternate infinite;
+	animation: floating-text 2s ease alternate infinite;
+
+	&:last-child {
+		animation-delay: 1s;
+	}
 }
 
 @keyframes move {
@@ -56,17 +66,17 @@ svg {
 		filter: drop-shadow(20px 14px 10px @dropShadowColor);
 	}
 	25% {
-		transform: scale(0.8) translate(5vw, 8vh) rotate(55deg);
+		transform: scale(0.8) translate(5vw, 6vh) rotate(55deg);
 		fill: @secondColor;
 		filter: drop-shadow(14px 14px 6px @dropShadowColor);
 	}
 	50% {
-		transform: scale(0.6) translate(17vw, 5vh) rotate(180deg);
+		transform: scale(0.6) translate(17vw, 4vh) rotate(180deg);
 		fill: @thirdColor;
 		filter: drop-shadow(-16px -16px 16px @dropShadowColor);
 	}
 	75% {
-		transform: scale(0.8) translate(5vw, 8vh) rotate(55deg);
+		transform: scale(0.8) translate(5vw, 6vh) rotate(55deg);
 		fill: @fourthColor;
 		filter: drop-shadow(14px 14px 6px @dropShadowColor);
 	}
@@ -121,5 +131,11 @@ svg {
 	}
 	80% {
 		transform: translate(0, -5px);
+	}
+}
+
+@keyframes floating-text {
+	0% {
+		transform: translateY(0.1em);
 	}
 }

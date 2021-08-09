@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
-import { fakeAuth } from './components/auth';
+import useToken, { fakeAuth } from './components/auth';
 import './styles/custom-theme.less';
 import LoginPage from './views/LoginPage';
 
@@ -26,12 +26,14 @@ function PrivateRoute({ children, ...rest }) {
 }
 
 export default function App() {
+	const { token, setToken } = useToken();
+
 	return (
 		<Router>
 			<Route path='/login'>
-				<LoginPage />
+				<LoginPage setToken={setToken} />
 			</Route>
-			<PrivateRoute path='/protected'>
+			<PrivateRoute path='/today'>
 				<Protected />
 			</PrivateRoute>
 		</Router>

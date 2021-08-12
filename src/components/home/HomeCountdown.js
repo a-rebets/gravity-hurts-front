@@ -4,7 +4,7 @@ const HomeCountdown = () => {
 	return (
 		<Container className='wrapper countdown rs-carousel-slider-item'>
 			<Header></Header>
-			<Content></Content>
+			<Content>Siemano</Content>
 			<Footer></Footer>
 		</Container>
 	);

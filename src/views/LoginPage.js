@@ -8,7 +8,7 @@ import {
 	Form,
 	FormGroup,
 	FormControl,
-	Input,
+	InputNumber,
 	Footer,
 	Panel,
 } from 'rsuite';
@@ -114,7 +114,7 @@ const LoginPage = ({ setToken }) => {
 									<div className='dot' key={i}></div>
 								))}
 							</div>
-							<p className='text-center pt-7'>
+							<p className='text-center pt-7 pb-3'>
 								<em>Нажать ниже для ввода</em>
 							</p>
 							<Form
@@ -126,10 +126,7 @@ const LoginPage = ({ setToken }) => {
 								<FormGroup>
 									<FormControl
 										name='pin'
-										accepter={Input}
-										size='lg'
-										type='number'
-										inputMode='numeric'
+										accepter={InputNumber}
 										pattern='[0-9]*'
 										value={pinValue}
 									/>

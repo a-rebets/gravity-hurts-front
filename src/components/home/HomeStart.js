@@ -19,7 +19,10 @@ const HomeStart = () => {
 	};
 
 	return (
-		<WaterWave className='water-layer' imageUrl={waterLayerBg}>
+		<WaterWave
+			className='water-layer rs-carousel-slider-item'
+			imageUrl={waterLayerBg}
+		>
 			{(_) => (
 				<Container className='wrapper'>
 					<Header>
@@ -28,7 +31,7 @@ const HomeStart = () => {
 						</h3>
 					</Header>
 					<Content></Content>
-					<Footer className='flex justify-center p-6'>
+					<Footer className='flex justify-center p-6 z-0 relative'>
 						<div ref={storyCircleRef} id='circle'>
 							<ButtonToolbar>
 								<IconButton

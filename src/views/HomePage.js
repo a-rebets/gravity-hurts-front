@@ -1,16 +1,36 @@
-import SwipeableViews from 'react-swipeable-views';
+import { useRef } from 'react';
+import { useSwipeable } from 'react-swipeable';
+import { Carousel } from 'rsuite';
 import HomeCountdown from '../components/home/HomeCountdown';
 import HomeStart from '../components/home/HomeStart';
 import '../styles/home.less';
 
+const swipeConfig = {
+	delta: 150,
+	trackMouse: true,
+};
+const pageStates = [
+	{ activeIndex: 0, lastIndex: 0 },
+	{ activeIndex: 1, lastIndex: 1 },
+];
+
 const HomePage = () => {
+	const carouselRef = useRef(null);
+
+	const switchCarousel = (state) => carouselRef.current.setState(state);
+
+	const handlers = useSwipeable({
+		onSwipedLeft: (_) => switchCarousel(pageStates[1]),
+		onSwipedRight: (_) => switchCarousel(pageStates[0]),
+		...swipeConfig,
+	});
 	// drop(50, 100, 20, 0.04 + Math.random() * 0.04);
 
 	return (
-		<SwipeableViews resistance className='h-full'>
+		<Carousel {...handlers} ref={carouselRef} placement='top' shape='bar'>
 			<HomeStart />
 			<HomeCountdown />
-		</SwipeableViews>
+		</Carousel>
 	);
 };
 

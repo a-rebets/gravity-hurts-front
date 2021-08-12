@@ -1,7 +1,13 @@
 import { Container, Header, Content, Footer } from 'rsuite';
 
 const HomeCountdown = () => {
-	return <p>Just a test</p>;
+	return (
+		<Container className='wrapper countdown rs-carousel-slider-item'>
+			<Header></Header>
+			<Content></Content>
+			<Footer></Footer>
+		</Container>
+	);
 };
 
 export default HomeCountdown;

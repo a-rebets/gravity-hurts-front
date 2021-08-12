@@ -3,41 +3,53 @@ body {
 	@apply fixed;
 }
 
-.react-swipeable-view-container {
-	@apply w-full h-full;
-}
-
 .wrapper {
 	@apply h-full relative;
 }
 
+.countdown {
+	@apply w-1/2;
+}
+
 .water-layer {
-	@apply h-full bg-cover;
+	@apply h-full bg-cover w-1/2;
+}
+
+.rs-carousel {
+	@apply h-full;
 }
 
 #circle {
-	@apply rounded-full z-10 relative bg-white;
-	transform-style: preserve-3d;
+	@apply rounded-full relative bg-white;
 
 	&::before {
 		content: ' ';
-		@apply h-10 w-10 absolute inset-0 m-auto rounded-full transition duration-700 z-0;
-		box-shadow: 0 0 0 0vw #fff;
-		transform: translateZ(-10px);
+		@apply h-10 w-10 absolute inset-0 m-auto rounded-full;
+		z-index: -1;
 	}
 	&.clicked::before {
 		box-shadow: 0 0 0 200vw #fff;
+		animation: spread-story 0.8s ease-in 0s;
 	}
 	&.clicked .rs-btn-icon {
-		transform: scale(0);
+		@apply scale-0;
 	}
 
 	.rs-btn-icon {
-		@apply w-20 h-20 p-3 z-20 shadow-xl transition-transform scale-100 delay-300;
+		@apply w-20 h-20 p-3 shadow-lg transition-transform transform-gpu delay-500;
 
 		.rs-icon {
 			@apply w-20 h-20 text-4xl py-3;
 			line-height: 3.2rem;
 		}
+	}
+}
+
+@keyframes spread-story {
+	0% {
+		box-shadow: 0 0 0 0vw #fff;
+	}
+	100% {
+		box-shadow: 0 0 0 200vw #fff;
 	}
 }

@@ -6,8 +6,8 @@ import HomeStart from '../components/home/HomeStart';
 import '../styles/home.less';
 
 const swipeConfig = {
-	delta: 150,
 	preventDefaultTouchmoveEvent: true,
+	trackTouch: true,
 	trackMouse: true,
 };
 const pageStates = [
@@ -28,18 +28,15 @@ const HomePage = () => {
 		onSwipedRight: () => switchCarousel(pageStates[0]),
 		...swipeConfig,
 	});
-
-	const refPassthrough = (el) => {
-		carouselRef.current = el;
-		handlers.ref(el);
-	};
 	// drop(50, 100, 20, 0.04 + Math.random() * 0.04);
 
 	return (
-		<Carousel {...handlers} ref={refPassthrough} placement='top' shape='bar'>
-			<HomeStart />
-			<HomeCountdown />
-		</Carousel>
+		<div {...handlers} class='swipe-provider h-full'>
+			<Carousel ref={carouselRef} placement='top' shape='bar'>
+				<HomeStart />
+				<HomeCountdown />
+			</Carousel>
+		</div>
 	);
 };
 

@@ -7,6 +7,8 @@ import '../styles/home.less';
 
 const swipeConfig = {
 	delta: 150,
+	preventDefaultTouchmoveEvent: true,
+	trackMouse: true,
 };
 const pageStates = [
 	{ activeIndex: 0, lastIndex: 0 },

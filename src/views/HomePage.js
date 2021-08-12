@@ -31,7 +31,7 @@ const HomePage = () => {
 	// drop(50, 100, 20, 0.04 + Math.random() * 0.04);
 
 	return (
-		<div {...handlers} class='swipe-provider h-full'>
+		<div {...handlers} className='swipe-provider h-full'>
 			<Carousel ref={carouselRef} placement='top' shape='bar'>
 				<HomeStart />
 				<HomeCountdown />

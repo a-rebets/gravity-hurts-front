@@ -26,7 +26,7 @@ const HomeStart = () => {
 			{(_) => (
 				<Container className='wrapper'>
 					<Header>
-						<h3 className='bg-gray-800 inline-block mt-10 py-2 px-4 bg-opacity-80'>
+						<h3 className='select-none bg-gray-800 inline-block mt-12 py-1 px-4 bg-opacity-80'>
 							Привет, Поля 😊
 						</h3>
 					</Header>

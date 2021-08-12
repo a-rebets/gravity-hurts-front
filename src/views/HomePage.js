@@ -7,7 +7,6 @@ import '../styles/home.less';
 
 const swipeConfig = {
 	delta: 150,
-	trackMouse: true,
 };
 const pageStates = [
 	{ activeIndex: 0, lastIndex: 0 },
@@ -24,10 +23,15 @@ const HomePage = () => {
 		onSwipedRight: (_) => switchCarousel(pageStates[0]),
 		...swipeConfig,
 	});
+
+	const refPassthrough = (el) => {
+		carouselRef.current = el;
+		handlers.ref(el);
+	};
 	// drop(50, 100, 20, 0.04 + Math.random() * 0.04);
 
 	return (
-		<Carousel {...handlers} ref={carouselRef} placement='top' shape='bar'>
+		<Carousel {...handlers} ref={refPassthrough} placement='top' shape='bar'>
 			<HomeStart />
 			<HomeCountdown />
 		</Carousel>

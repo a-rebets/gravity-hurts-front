@@ -3,15 +3,17 @@ import { Drawer, Placeholder } from 'rsuite';
 
 const { Paragraph } = Placeholder;
 
-const NotificationDrawer = memo(({ shown, callback }) => {
+const NotificationDrawer = memo(({ swipeHandlers, shown, callback }) => {
 	return (
 		<Drawer size='xs' placement='left' show={shown} onHide={callback}>
-			<Drawer.Header>
-				<Drawer.Title>Уведомления</Drawer.Title>
-			</Drawer.Header>
-			<Drawer.Body>
-				<Paragraph active />
-			</Drawer.Body>
+			<div {...swipeHandlers}>
+				<Drawer.Header>
+					<Drawer.Title>Уведомления</Drawer.Title>
+				</Drawer.Header>
+				<Drawer.Body>
+					<Paragraph active />
+				</Drawer.Body>
+			</div>
 		</Drawer>
 	);
 });

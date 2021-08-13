@@ -23,28 +23,33 @@ const HomePage = () => {
 
 	const switchCarousel = (state) => carouselRef.current.setState(state);
 
-	const handlers = useSwipeable({
-		onSwipedLeft: () => {
-			if (drawerShown) {
-				toggleDrawer();
-			} else {
-				switchCarousel(pageStates[1]);
-			}
-		},
+	const swipeHandlers = useSwipeable({
+		onSwipedLeft: () => switchCarousel(pageStates[1]),
 		onSwipedRight: () => switchCarousel(pageStates[0]),
+		...swipeConfig,
+	});
+
+	const drawerSwipeHandlers = useSwipeable({
+		onSwipedLeft: () => toggleDrawer(),
 		...swipeConfig,
 	});
 
 	const toggleDrawer = () => setdrawerShown(!drawerShown);
 
 	return (
-		<div {...handlers} className='swipe-provider h-full'>
-			<Carousel ref={carouselRef} placement='top' shape='bar'>
-				<HomeStart key={1} drawerCallback={toggleDrawer} />
-				<HomeCountdown key={2} />
-			</Carousel>
-			<NotificationDrawer shown={drawerShown} callback={toggleDrawer} />
-		</div>
+		<>
+			<div {...swipeHandlers} className='swipe-provider h-full'>
+				<Carousel ref={carouselRef} placement='top' shape='bar'>
+					<HomeStart key={1} drawerCallback={toggleDrawer} />
+					<HomeCountdown key={2} />
+				</Carousel>
+			</div>
+			<NotificationDrawer
+				swipeHandlers={drawerSwipeHandlers}
+				shown={drawerShown}
+				callback={toggleDrawer}
+			/>
+		</>
 	);
 };
 

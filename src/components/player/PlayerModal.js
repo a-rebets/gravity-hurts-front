@@ -35,7 +35,7 @@ const PlayerModal = memo(({ shown, callback, ...rest }) => {
 				</Grid>
 			</Modal.Body>
 			<Modal.Footer>
-				<Button appearance='default' onClick={callback} block>
+				<Button appearance='subtle' size='lg' onClick={callback} block>
 					Вернуться
 				</Button>
 			</Modal.Footer>

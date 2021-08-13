@@ -1,6 +1,6 @@
 import { ButtonToolbar, Icon, IconButton } from 'rsuite';
 import ReactPlayer from 'react-player/lazy';
-import { Component } from 'react';
+import { Component, createRef } from 'react';
 import PlayerModal from './PlayerModal';
 
 class Player extends Component {
@@ -8,23 +8,25 @@ class Player extends Component {
 		super(props);
 		this.state = {
 			url: null,
-			playing: true,
+			ready: false,
+			playing: false,
 			modalShown: false,
 			btnIcon: 'play',
 			btnText: 'Включить',
 		};
+		this.playerBtn = createRef();
 	}
 
 	componentDidMount() {
-		setTimeout(() => {
-			this.loadUrl('https://www.youtube.com/watch?v=VaKzNtwPQxE');
-		}, 4000);
+		this.loadUrl('https://www.youtube.com/watch?v=VaKzNtwPQxE');
 		window.addEventListener('blur', this.handleBlur);
 	}
 	componentWillUnmount() {
 		window.removeEventListener('blur', this.handleBlur);
 		window.removeEventListener('focus', this.startPlayback);
 	}
+
+	handleReady = () => this.setState({ ready: true });
 
 	// we don't want the player to fire up
 	// when a user just focused the page for the first time
@@ -61,6 +63,7 @@ class Player extends Component {
 						icon={<Icon icon={this.state.btnIcon} />}
 						placement='left'
 						onClick={this.togglePlayer}
+						disabled={!this.state.ready}
 					>
 						{this.state.btnText}
 					</IconButton>
@@ -73,7 +76,7 @@ class Player extends Component {
 					<ReactPlayer
 						width='100%'
 						height='auto'
-						onReady={this.startPlayback}
+						onReady={this.handleReady}
 						onEnded={this.stopPlayback}
 						playing={this.state.playing}
 						url={this.state.url}

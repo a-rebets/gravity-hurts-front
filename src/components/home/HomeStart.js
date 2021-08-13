@@ -1,4 +1,6 @@
 import {
+	Badge,
+	FlexboxGrid,
 	ButtonToolbar,
 	Container,
 	Header,
@@ -9,9 +11,10 @@ import {
 } from 'rsuite';
 import WaterWave from 'react-water-wave';
 import waterLayerBg from '../../assets/bg.jpg';
-import { useRef } from 'react';
+import { memo, useRef } from 'react';
+import Player from '../player/Player';
 
-const HomeStart = () => {
+const HomeStart = memo(({ drawerCallback }) => {
 	const storyCircleRef = useRef(null);
 
 	const handleStoryBtnClick = () => {
@@ -25,10 +28,32 @@ const HomeStart = () => {
 		>
 			{(_) => (
 				<Container className='wrapper'>
-					<Header>
-						<h3 className='select-none bg-gray-800 inline-block mt-12 py-1 px-4 bg-opacity-80'>
-							Привет, Поля 😊
-						</h3>
+					<Header className='mt-12'>
+						<FlexboxGrid>
+							<FlexboxGrid.Item className='bg-gray-600 bg-opacity-80 pl-6 pr-4'>
+								<h3 className='greeting'>Привет, Поля</h3>
+								<h3 className='inline-block'>&nbsp;😊</h3>
+							</FlexboxGrid.Item>
+						</FlexboxGrid>
+						<FlexboxGrid
+							align='middle'
+							justify='space-between'
+							className='toolbar'
+						>
+							<FlexboxGrid.Item className='px-6'>
+								<Player />
+							</FlexboxGrid.Item>
+							<FlexboxGrid.Item className='pr-6'>
+								<Badge content={2}>
+									<IconButton
+										onClick={drawerCallback}
+										size='lg'
+										appearance='primary'
+										icon={<Icon icon='bell' />}
+									/>
+								</Badge>
+							</FlexboxGrid.Item>
+						</FlexboxGrid>
 					</Header>
 					<Content></Content>
 					<Footer className='flex justify-center p-6 z-0 relative'>
@@ -48,6 +73,6 @@ const HomeStart = () => {
 			)}
 		</WaterWave>
 	);
-};
+});
 
 export default HomeStart;

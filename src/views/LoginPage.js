@@ -13,9 +13,9 @@ import {
 	Panel,
 } from 'rsuite';
 import { Redirect, useLocation } from 'react-router-dom';
-import { fakeAuth } from '../components/auth';
+import { fakeAuth } from '../components/util/auth';
 import '../styles/login.less';
-import LoginBlob from '../components/lognBlob';
+import LoginBlob from '../components/blobs/login';
 
 const VALID_PASS = '111111';
 
@@ -100,10 +100,10 @@ const LoginPage = ({ setToken }) => {
 
 	return (
 		<Container className='h-full'>
-			<Header className='py-10 px-4'>
+			<Header className='login-header py-10 px-4'>
 				<LoginBlob />
-				<h1 className='login-title'>Введи</h1>
-				<h1 className='login-title'>свой пароль</h1>
+				<h1>Введи</h1>
+				<h1>свой пароль</h1>
 			</Header>
 			<Content>
 				<FlexboxGrid justify='center' className='py-4'>

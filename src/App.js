@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
-import useToken, { fakeAuth } from './components/auth';
+import useToken, { fakeAuth } from './components/util/auth';
 import './styles/custom-theme.less';
 import LoginPage from './views/LoginPage';
 import HomePage from './views/HomePage';

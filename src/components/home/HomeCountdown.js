@@ -1,8 +1,8 @@
 import { memo } from 'react';
 import { Container, Header, Content, Footer, Grid, Row, Col } from 'rsuite';
 import LoadingBlob from '../blobs/loading';
-import Countdown from '../util/countdown';
-import RainbowProgress from '../util/progress';
+import Countdown from '../util/Countdown';
+import RainbowProgress from '../util/Progress';
 
 const HomeCountdown = memo(() => {
 	return (

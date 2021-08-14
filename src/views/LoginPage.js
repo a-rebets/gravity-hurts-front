@@ -13,7 +13,6 @@ import {
 	Panel,
 } from 'rsuite';
 import { Redirect, useLocation } from 'react-router-dom';
-import { fakeAuth } from '../components/util/auth';
 import '../styles/login.less';
 import LoginBlob from '../components/blobs/login';
 

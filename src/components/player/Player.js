@@ -1,7 +1,8 @@
 import { ButtonToolbar, Icon, IconButton } from 'rsuite';
-import ReactPlayer from 'react-player/lazy';
+import ReactPlayer from 'react-player/youtube';
 import { Component, createRef } from 'react';
 import PlayerModal from './PlayerModal';
+import SoundWave from '../util/SoundWave';
 
 class Player extends Component {
 	constructor(props) {
@@ -11,6 +12,7 @@ class Player extends Component {
 			ready: false,
 			playing: false,
 			modalShown: false,
+			wasPlaying: false,
 			btnIcon: 'play',
 			btnText: 'Включить',
 		};
@@ -19,39 +21,45 @@ class Player extends Component {
 
 	componentDidMount() {
 		this.loadUrl('https://www.youtube.com/watch?v=VaKzNtwPQxE');
-		window.addEventListener('blur', this.handleBlur);
+		window.addEventListener('focus', this.handleFocus);
 	}
 	componentWillUnmount() {
-		window.removeEventListener('blur', this.handleBlur);
-		window.removeEventListener('focus', this.startPlayback);
+		window.removeEventListener('focus', this.handleFocus);
 	}
 
 	handleReady = () => this.setState({ ready: true });
 
-	// we don't want the player to fire up
-	// when a user just focused the page for the first time
-	handleBlur = () => {
-		window.addEventListener('focus', this.startPlayback);
-		this.stopPlayback();
+	handleFocus = () => {
+		if (this.state.wasPlaying) {
+			this.startPlayback();
+		}
 	};
 
 	loadUrl = (url) => this.setState({ url: url });
 
 	toggleModal = () => this.setState({ modalShown: !this.state.modalShown });
 
-	togglePlayer = () => {
-		if (this.state.playing) {
-			this.stopPlayback();
-		} else {
-			this.startPlayback();
-		}
+	togglePlayer = () =>
+		this.state.playing ? this.pausePlayback() : this.startPlayback();
+
+	stopPlayback = () => this.pausePlayback(false);
+
+	pausePlayback = (wasPlaying = this.state.playing) => {
+		this.setState({
+			playing: false,
+			wasPlaying: wasPlaying,
+			btnIcon: 'play',
+			btnText: 'Включить',
+		});
 	};
 
-	stopPlayback = () =>
-		this.setState({ playing: false, btnIcon: 'play', btnText: 'Включить' });
-
 	startPlayback = () =>
-		this.setState({ playing: true, btnIcon: 'pause', btnText: 'Пауза' });
+		this.setState({
+			playing: true,
+			wasPlaying: this.state.playing,
+			btnIcon: 'pause',
+			btnText: 'Пауза',
+		});
 
 	render() {
 		return (
@@ -73,16 +81,18 @@ class Player extends Component {
 						size='lg'
 						icon={<Icon icon='arrow-down' />}
 					/>
-					<ReactPlayer
-						width='100%'
-						height='auto'
-						onReady={this.handleReady}
-						onEnded={this.stopPlayback}
-						playing={this.state.playing}
-						url={this.state.url}
-						style={{ position: 'absolute', visibility: 'hidden' }}
-					/>
+					<SoundWave enabled={this.state.playing} />
 				</ButtonToolbar>
+				<ReactPlayer
+					width='50%'
+					height='auto'
+					onPause={this.pausePlayback}
+					onReady={this.handleReady}
+					onEnded={this.stopPlayback}
+					playing={this.state.playing}
+					url={this.state.url}
+					style={{ position: 'absolute', visibility: 'hidden' }}
+				/>
 				<PlayerModal
 					shown={this.state.modalShown}
 					callback={this.toggleModal}

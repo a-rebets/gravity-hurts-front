@@ -1,4 +1,4 @@
-import { FlexboxGrid, List, Toggle } from 'rsuite';
+import { List, Button, ButtonToolbar } from 'rsuite';
 
 const data = [
 	'Roses are red',
@@ -10,17 +10,12 @@ const data = [
 const SongLyrics = () => {
 	return (
 		<>
-			<FlexboxGrid className='py-2' align='middle'>
-				<FlexboxGrid.Item>
-					<Toggle size='md' className='mr-2' />
-				</FlexboxGrid.Item>
-				<FlexboxGrid.Item>
-					<p>
-						<strong>Live mode</strong>
-					</p>
-				</FlexboxGrid.Item>
-			</FlexboxGrid>
-			<List hover>
+			<ButtonToolbar className='py-2'>
+				<Button appearance='default' color='red' size='xs' block>
+					🔴 Live mode
+				</Button>
+			</ButtonToolbar>
+			<List>
 				{data.map((item, index) => (
 					<List.Item key={index} index={index}>
 						{item}

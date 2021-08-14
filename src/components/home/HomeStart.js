@@ -1,7 +1,6 @@
 import {
 	Badge,
 	FlexboxGrid,
-	ButtonToolbar,
 	Container,
 	Header,
 	Icon,
@@ -58,15 +57,13 @@ const HomeStart = memo(({ drawerCallback }) => {
 					<Content></Content>
 					<Footer className='flex justify-center p-6 z-0 relative'>
 						<div ref={storyCircleRef} id='circle'>
-							<ButtonToolbar>
-								<IconButton
-									appearance='ghost'
-									size='lg'
-									circle
-									icon={<Icon icon='file-text' />}
-									onClick={handleStoryBtnClick}
-								/>
-							</ButtonToolbar>
+							<IconButton
+								appearance='ghost'
+								size='lg'
+								circle
+								icon={<Icon icon='file-text' />}
+								onClick={handleStoryBtnClick}
+							/>
 						</div>
 					</Footer>
 				</Container>

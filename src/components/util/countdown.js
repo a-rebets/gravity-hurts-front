@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Grid, Row, Col, FlexboxGrid } from 'rsuite';
 
 const localized = {
@@ -25,22 +25,7 @@ const localized = {
 };
 
 const Countdown = ({ digitSpan, textSpan }) => {
-	const calculateTimeLeft = () => {
-		const difference = +new Date(`2021-09-12`) - +new Date();
-		let timeLeft = {};
-
-		if (difference > 0) {
-			timeLeft = {
-				days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-				hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-				minutes: Math.floor((difference / 1000 / 60) % 60),
-				seconds: Math.floor((difference / 1000) % 60),
-			};
-		}
-		return parseLocal(timeLeft);
-	};
-
-	const parseLocal = (obj) => {
+	const parseLocal = useCallback((obj) => {
 		let res = {};
 		for (const [key, value] of Object.entries(obj)) {
 			if ((value >= 11 && value < 20) || value % 10 === 0) {
@@ -53,16 +38,32 @@ const Countdown = ({ digitSpan, textSpan }) => {
 			res[temp[1]] = value;
 		}
 		return res;
-	};
+	}, []);
+
+	const calculateTimeLeft = useCallback(() => {
+		const difference = +new Date(`2021-09-12`) - +new Date();
+		let timeLeft = {};
+
+		if (difference > 0) {
+			timeLeft = {
+				days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+				hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+				minutes: Math.floor((difference / 1000 / 60) % 60),
+				seconds: Math.floor((difference / 1000) % 60),
+			};
+		}
+		return parseLocal(timeLeft);
+	}, [parseLocal]);
 
 	const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 	const timerComponents = [];
 
 	useEffect(() => {
-		setTimeout(() => {
+		const interval = setInterval(() => {
 			setTimeLeft(calculateTimeLeft());
 		}, 1000);
-	});
+		return () => clearInterval(interval);
+	}, [calculateTimeLeft]);
 
 	Object.keys(timeLeft).forEach((interval, ind) => {
 		timerComponents.push(

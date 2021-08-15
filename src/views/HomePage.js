@@ -6,6 +6,10 @@ import HomeStart from '../components/home/HomeStart';
 import NotificationDrawer from '../components/home/NotificationDrawer';
 import '../styles/home.less';
 
+import StoryImage from '../components/story/StoryImage';
+
+import testImg from '../assets/krakow.jpeg';
+
 const swipeConfig = {
 	delta: 150,
 	preventDefaultTouchmoveEvent: true,
@@ -44,6 +48,7 @@ const HomePage = () => {
 					<HomeCountdown key={2} />
 				</Carousel>
 			</div>
+			<StoryImage source={testImg} />
 			<NotificationDrawer
 				swipeHandlers={drawerSwipeHandlers}
 				shown={drawerShown}

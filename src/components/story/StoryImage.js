@@ -13,11 +13,6 @@ const StoryImage = ({ source }) => {
 			alt='story image'
 			width='100%'
 			src={source}
-			afterLoad={() => {
-				setTimeout(() => {
-					setloading(false);
-				}, 100);
-			}}
 		/>
 	);
 
@@ -34,14 +29,31 @@ const StoryImage = ({ source }) => {
 				wheel={{ disabled: true }}
 				doubleClick={{ disabled: true }}
 				zoomAnimation={{ disabled: true }}
-				centerOnInit
+				initialPositionY={100}
 			>
-				<TransformComponent
-					wrapperClass='z-30 top-0 left-0 backdrop-filter backdrop-blur'
-					wrapperStyle={{ height: '100%', width: '100%', position: 'absolute' }}
-				>
-					{loadedImg}
-				</TransformComponent>
+				{({ centerView }) => (
+					<TransformComponent
+						wrapperClass='z-30 top-0 left-0 backdrop-filter backdrop-blur'
+						wrapperStyle={{
+							height: '100%',
+							width: '100%',
+							position: 'absolute',
+						}}
+					>
+						{cloneElement(
+							loadedImg,
+							{
+								afterLoad: () => {
+									setTimeout(() => {
+										centerView(1);
+										setloading(false);
+									}, 100);
+								},
+							},
+							null
+						)}
+					</TransformComponent>
+				)}
 			</TransformWrapper>
 			{cloneElement(loadedImg, backgroundImgProps, null)}
 			{loading && (

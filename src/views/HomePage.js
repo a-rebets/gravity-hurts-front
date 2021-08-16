@@ -19,21 +19,30 @@ const pageStates = [
 
 const HomePage = () => {
 	const carouselRef = useRef(null);
+
 	const [drawerShown, setdrawerShown] = useState(false);
 	const [storyShown, setstoryShown] = useState(false);
+	const [modalBlocking, setmodalBlocking] = useState(false);
 
 	const switchCarousel = (state) => carouselRef.current.setState(state);
-	const toggleDrawer = () => setdrawerShown(!drawerShown);
 
 	const swipeHandlers = useSwipeable({
-		onSwipedLeft: () => switchCarousel(pageStates[1]),
-		onSwipedRight: () => switchCarousel(pageStates[0]),
+		onSwipedLeft: () => {
+			if (!modalBlocking) {
+				switchCarousel(pageStates[1]);
+			}
+		},
+		onSwipedRight: () => {
+			if (!modalBlocking) {
+				switchCarousel(pageStates[0]);
+			}
+		},
 		...swipeConfig,
 	});
 
 	const drawerSwipeHandlers = useSwipeable({
-		onSwipedLeft: () => toggleDrawer(),
-		...swipeConfig,
+		onSwipedLeft: () => setdrawerShown(false),
+		...{ ...swipeConfig, delta: 100 },
 	});
 
 	return (
@@ -47,7 +56,11 @@ const HomePage = () => {
 				>
 					<HomeStart
 						key={1}
-						drawerCallback={toggleDrawer}
+						drawer={{ shown: drawerShown, setShown: setdrawerShown }}
+						globalModal={{
+							blocking: modalBlocking,
+							setBlocking: setmodalBlocking,
+						}}
 						story={{ shown: storyShown, setShown: setstoryShown }}
 					/>
 					<HomeCountdown key={2} />
@@ -56,7 +69,7 @@ const HomePage = () => {
 			<NotificationDrawer
 				swipeHandlers={drawerSwipeHandlers}
 				shown={drawerShown}
-				callback={toggleDrawer}
+				callback={() => setdrawerShown(false)}
 			/>
 		</>
 	);

@@ -1,6 +1,6 @@
 import { ButtonToolbar, Icon, IconButton } from 'rsuite';
 import ReactPlayer from 'react-player/youtube';
-import { Component, createRef } from 'react';
+import { Component } from 'react';
 import PlayerModal from './PlayerModal';
 import SoundWave from '../util/SoundWave';
 
@@ -16,7 +16,6 @@ class Player extends Component {
 			btnIcon: 'play',
 			btnText: 'Включить',
 		};
-		this.playerBtn = createRef();
 	}
 
 	componentDidMount() {
@@ -37,7 +36,10 @@ class Player extends Component {
 
 	loadUrl = (url) => this.setState({ url: url });
 
-	toggleModal = () => this.setState({ modalShown: !this.state.modalShown });
+	toggleModal = (modalShown) => {
+		this.setState({ modalShown });
+		this.props.setModalBlock(modalShown);
+	};
 
 	togglePlayer = () =>
 		this.state.playing ? this.pausePlayback() : this.startPlayback();
@@ -47,7 +49,7 @@ class Player extends Component {
 	pausePlayback = (wasPlaying = this.state.playing) => {
 		this.setState({
 			playing: false,
-			wasPlaying: wasPlaying,
+			wasPlaying,
 			btnIcon: 'play',
 			btnText: 'Включить',
 		});
@@ -76,7 +78,7 @@ class Player extends Component {
 						{this.state.btnText}
 					</IconButton>
 					<IconButton
-						onClick={this.toggleModal}
+						onClick={() => this.toggleModal(true)}
 						appearance='ghost'
 						size='lg'
 						icon={<Icon icon='arrow-down' />}
@@ -95,7 +97,7 @@ class Player extends Component {
 				/>
 				<PlayerModal
 					shown={this.state.modalShown}
-					callback={this.toggleModal}
+					closeCallback={() => this.toggleModal(false)}
 				/>
 			</>
 		);

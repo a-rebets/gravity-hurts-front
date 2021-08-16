@@ -47,7 +47,7 @@ module.exports = {
 						modifyVars: {
 							'@base-color': '#00bcd4',
 							'@font-family-base': "'Raleway', Arial, Helvetica, sans-serif",
-							'@ie-polyfill': 'false',
+							'@ie-polyfill': false,
 						},
 					},
 				},

@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import useToken from './components/util/auth';
-import LoginPage from './views/LoginPage';
-import HomePage from './views/HomePage';
+import LoginPage from './views/login';
+import HomePage from './views/home';
 
 const LOGIN_OVERRIDE = true;
 

@@ -10,16 +10,14 @@ import {
 } from 'rsuite';
 import WaterWave from 'react-water-wave';
 import waterLayerBg from '../../assets/bg.jpg';
-import { memo, useRef } from 'react';
+import { memo } from 'react';
 import Player from '../player/Player';
 
-const HomeStart = memo(({ drawerCallback }) => {
-	const storyCircleRef = useRef(null);
+import StoryImage from '../story/StoryImage';
 
-	const handleStoryBtnClick = () => {
-		storyCircleRef.current.classList.toggle('clicked');
-	};
+import testImg from '../../assets/krakow.jpeg';
 
+const HomeStart = memo(({ drawerCallback, story }) => {
 	return (
 		<WaterWave
 			className='water-layer rs-carousel-slider-item'
@@ -55,17 +53,18 @@ const HomeStart = memo(({ drawerCallback }) => {
 						</FlexboxGrid>
 					</Header>
 					<Content></Content>
-					<Footer className='flex justify-center p-6 z-0 relative'>
-						<div ref={storyCircleRef} id='circle'>
+					<Footer className='flex justify-center p-6 relative'>
+						<div id='circle'>
 							<IconButton
 								appearance='ghost'
 								size='lg'
 								circle
 								icon={<Icon icon='file-text' />}
-								onClick={handleStoryBtnClick}
+								onClick={() => story.setShown(true)}
 							/>
 						</div>
 					</Footer>
+					{story.shown && <StoryImage source={testImg} />}
 				</Container>
 			)}
 		</WaterWave>

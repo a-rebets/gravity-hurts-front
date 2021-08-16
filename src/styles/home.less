@@ -22,6 +22,10 @@ body {
 	.rs-carousel-slider-item {
 		@apply w-1/2;
 	}
+
+	&.story-open .rs-carousel-content {
+		@apply z-10;
+	}
 }
 
 .rs-drawer-left.rs-drawer-xs {
@@ -92,6 +96,17 @@ body {
 	}
 }
 
+.story-modal {
+	visibility: hidden;
+	clip-path: circle(1rem at 50% 92%);
+	transition: clip-path 0.6s cubic-bezier(0.4, 0, 0.2, 1) 100ms;
+
+	&.open {
+		visibility: visible;
+		clip-path: circle(75%);
+	}
+}
+
 .player-modal {
 	width: 95%;
 
@@ -101,23 +116,10 @@ body {
 }
 
 #circle {
-	@apply rounded-full relative bg-white;
-
-	&::before {
-		content: ' ';
-		@apply h-10 w-10 absolute inset-0 m-auto rounded-full;
-		z-index: -1;
-	}
-	&.clicked::before {
-		box-shadow: 0 0 0 200vw #fff;
-		animation: spread-story 0.6s ease-in 0s;
-	}
-	&.clicked .rs-btn-icon {
-		@apply scale-0;
-	}
+	@apply z-30 rounded-full relative bg-white transition-transform transform-gpu delay-500;
 
 	.rs-btn-icon {
-		@apply w-20 h-20 p-3 shadow-lg transition-transform transform-gpu delay-500;
+		@apply w-20 h-20 p-3 shadow-lg;
 
 		.rs-icon {
 			@apply w-20 h-20 text-4xl py-3;
@@ -125,13 +127,8 @@ body {
 		}
 	}
 
-	@keyframes spread-story {
-		0% {
-			box-shadow: 0 0 0 0vw #fff;
-		}
-		100% {
-			box-shadow: 0 0 0 200vw #fff;
-		}
+	.story-open & {
+		@apply scale-0;
 	}
 }
 

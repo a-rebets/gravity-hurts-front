@@ -2,10 +2,17 @@ import { Loader } from 'rsuite';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 import 'react-lazy-load-image-component/src/effects/opacity.css';
-import { cloneElement, useState } from 'react';
+import { cloneElement, useEffect, useState } from 'react';
 
 const StoryImage = ({ source }) => {
 	const [loading, setloading] = useState(true);
+	const [isOpen, setisOpen] = useState(false);
+
+	useEffect(() => {
+		setTimeout(() => {
+			setisOpen(true);
+		}, 100);
+	}, []);
 
 	const loadedImg = (
 		<LazyLoadImage
@@ -29,7 +36,11 @@ const StoryImage = ({ source }) => {
 	};
 
 	return (
-		<div className='absolute w-full h-full z-20 top-0 left-0'>
+		<div
+			className={`story-modal absolute w-full h-full z-20 top-0 left-0 ${
+				isOpen ? 'open' : ''
+			}`}
+		>
 			<TransformWrapper
 				wheel={{ disabled: true }}
 				doubleClick={{ disabled: true }}

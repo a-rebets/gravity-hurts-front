@@ -1,5 +1,5 @@
 import { ButtonToolbar, Icon, IconButton } from 'rsuite';
-import ReactPlayer from 'react-player/lazy';
+import ReactPlayer from 'react-player/youtube';
 import { Component, createRef } from 'react';
 import PlayerModal from './PlayerModal';
 import SoundWave from '../util/SoundWave';

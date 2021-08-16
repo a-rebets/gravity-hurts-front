@@ -97,13 +97,13 @@ body {
 }
 
 .story-modal {
-	visibility: hidden;
-	clip-path: circle(1rem at 50% 92%);
-	transition: clip-path 0.6s cubic-bezier(0.4, 0, 0.2, 1) 100ms;
+	clip-path: circle(75%);
+	animation: open-story 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 
-	&.open {
-		visibility: visible;
-		clip-path: circle(75%);
+	@keyframes open-story {
+		from {
+			clip-path: circle(1rem at 50% 92%);
+		}
 	}
 }
 

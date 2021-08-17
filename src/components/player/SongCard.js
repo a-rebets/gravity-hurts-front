@@ -26,7 +26,7 @@ const SongCard = () => {
 		}
 		setTimeout(() => {
 			setLoaded(true);
-		}, 4000);
+		}, 2000);
 	}, [loaded]);
 
 	const handleTitleMarquee = () => {
@@ -61,7 +61,7 @@ const SongCard = () => {
 					) : (
 						<Placeholder.Graph
 							active
-							style={{ width: '100%', height: '180px' }}
+							style={{ width: '100%', height: '200px' }}
 						/>
 					)}
 				</FlexboxGrid.Item>

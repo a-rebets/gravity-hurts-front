@@ -1,0 +1,27 @@
+.text-provider-content {
+	@apply font-medium text-2xl;
+	margin-top: 100vh;
+}
+
+.text-provider-panel {
+	@apply fixed w-full left-0;
+
+	&.top-panel {
+		@apply top-0 pb-14 pt-4;
+		background-image: linear-gradient(
+			to bottom,
+			#1f1f1f 0%,
+			rgba(51, 51, 51, 0.85) 35%,
+			rgba(51, 51, 51, 0) 95%
+		);
+	}
+	&.bottom-panel {
+		@apply bottom-0 pt-14 pb-4;
+		background-image: linear-gradient(
+			to top,
+			#1f1f1f 0%,
+			rgba(51, 51, 51, 0.85) 35%,
+			rgba(51, 51, 51, 0) 95%
+		);
+	}
+}

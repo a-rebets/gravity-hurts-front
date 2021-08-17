@@ -3,8 +3,9 @@ import { Container, Header, Content, Footer, Grid, Row, Col } from 'rsuite';
 import LoadingBlob from '../blobs/loading';
 import Countdown from '../util/Countdown';
 import RainbowProgress from '../util/Progress';
+import '../../styles/timemachine.less';
 
-const HomeCountdown = memo(() => {
+const TimeMachine = memo(() => {
 	return (
 		<Container className='wrapper px-6 py-10 rs-carousel-slider-item'>
 			<Header>
@@ -30,4 +31,4 @@ const HomeCountdown = memo(() => {
 	);
 });
 
-export default HomeCountdown;
+export default TimeMachine;

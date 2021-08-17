@@ -35,7 +35,7 @@ const WaterSwitch = ({
 	return <></>;
 };
 
-const HomeStart = memo(({ drawer, globalModal, story }) => {
+const Start = memo(({ drawer, globalModal, story }) => {
 	const [waterActive, setwaterActive] = useState(true);
 
 	const toggleStory = () => {
@@ -118,4 +118,4 @@ const HomeStart = memo(({ drawer, globalModal, story }) => {
 	);
 });
 
-export default HomeStart;
+export default Start;

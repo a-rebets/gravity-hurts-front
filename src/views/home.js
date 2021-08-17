@@ -8,8 +8,7 @@ import NotificationDrawer from '../components/home/NotificationDrawer';
 import '../styles/home.less';
 
 const swipeConfig = {
-	delta: 250,
-	preventDefaultTouchmoveEvent: true,
+	delta: 350,
 	trackTouch: true,
 	trackMouse: true,
 };

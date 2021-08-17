@@ -10,7 +10,6 @@ import TextProvider from '../util/TextProvider';
 
 const swipeConfig = {
 	delta: 50,
-	preventDefaultTouchmoveEvent: true,
 	trackTouch: true,
 	trackMouse: true,
 };
@@ -36,7 +35,11 @@ const StoryImage = ({ source }) => {
 	};
 
 	const textShowSwipeHandlers = useSwipeable({
-		onSwipedUp: () => settextShown(true),
+		onSwipedUp: () => {
+			if (!textShown) {
+				settextShown(true);
+			}
+		},
 		...swipeConfig,
 	});
 
@@ -47,6 +50,7 @@ const StoryImage = ({ source }) => {
 				doubleClick={{ disabled: true }}
 				zoomAnimation={{ disabled: true }}
 				initialPositionY={100}
+				disabled={textShown}
 			>
 				{({ centerView }) => (
 					<>

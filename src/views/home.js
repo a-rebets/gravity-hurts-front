@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { useSwipeable } from 'react-swipeable';
-import { Carousel } from 'rsuite';
+import { Alert, Carousel } from 'rsuite';
 import TimeMachine from '../components/home/TimeMachinePanel';
 import Start from '../components/home/StartPanel';
 import Filmtok from '../components/home/FilmtokPanel';
@@ -36,6 +36,10 @@ const HomePage = () => {
 		onSwipedLeft: () => {
 			if (!modalBlocking) {
 				switchCarousel(pageStates[getNewInd()]);
+				Alert.info(
+					`${window.innerWidth}--${window.innerHeight}--${window.screen.width}--${window.screen.height}`,
+					20000
+				);
 			}
 		},
 		onSwipedRight: () => {

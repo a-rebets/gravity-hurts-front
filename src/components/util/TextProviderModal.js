@@ -9,7 +9,7 @@ export default function TextProviderModal(props) {
 			onAfterOpen={() => {}}
 			onRequestClose={() => {}}
 			contentRef={props.contentElRef}
-			contentLabel='Example Modal'
+			contentLabel='Story overlay text'
 			style={{
 				overlay: {
 					zIndex: 40,

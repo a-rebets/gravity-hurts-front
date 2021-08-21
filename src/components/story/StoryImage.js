@@ -55,25 +55,22 @@ const StoryImage = ({ source }) => {
 			>
 				{({ centerView }) => (
 					<>
-						<div
-							{...textShowSwipeHandlers}
-							className='absolute bottom-0 left-0 w-full z-40 pt-12 pb-6'
-						>
-							<FlexboxGrid justify='center'>
-								<FlexboxGrid.Item>
-									{!textShown && (
+						{!textShown && (
+							<div
+								{...textShowSwipeHandlers}
+								className='absolute bottom-0 left-0 w-full z-40 pt-12 pb-6'
+							>
+								<FlexboxGrid justify='center'>
+									<FlexboxGrid.Item>
 										<Icon
 											className='text-show-icon'
 											icon='arrow-up2'
 											size='2x'
 										/>
-									)}
-									<Suspense fallback={<></>}>
-										{textShown && <TextProvider closeCallback={settextShown} />}
-									</Suspense>
-								</FlexboxGrid.Item>
-							</FlexboxGrid>
-						</div>
+									</FlexboxGrid.Item>
+								</FlexboxGrid>
+							</div>
+						)}
 						<TransformComponent
 							wrapperClass='z-30 top-0 left-0 backdrop-filter backdrop-blur'
 							wrapperStyle={{
@@ -106,6 +103,9 @@ const StoryImage = ({ source }) => {
 					vertical
 				/>
 			)}
+			<Suspense fallback={<></>}>
+				<TextProvider shown={textShown} closeCallback={settextShown} />
+			</Suspense>
 		</div>
 	);
 };

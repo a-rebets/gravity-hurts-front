@@ -13,12 +13,12 @@ import {
 import LoadingBlob from '../blobs/loading';
 import Countdown from '../util/Countdown';
 import RainbowProgress from '../util/Progress';
-import '../../styles/timemachine.less';
+import '../../styles/time-machine.less';
 import FlexboxGridItem from 'rsuite/lib/FlexboxGrid/FlexboxGridItem';
 
 const TimeMachine = memo(() => {
 	return (
-		<Container className='wrapper px-9 py-10 rs-carousel-slider-item'>
+		<Container className='wrapper rs-carousel-slider-item timemachine'>
 			<Header>
 				<Grid fluid>
 					<Row>

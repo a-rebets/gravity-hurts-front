@@ -5,7 +5,7 @@ import '../../styles/filmtok.less';
 
 const Filmtok = () => {
 	return (
-		<Container className='filmtok wrapper rs-carousel-slider-item pt-12'>
+		<Container className='filmtok wrapper rs-carousel-slider-item'>
 			<Header className='flex justify-center my-8 z-10'>
 				<Icon icon='logo-video' size='4x' />
 			</Header>

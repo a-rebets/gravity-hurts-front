@@ -3,6 +3,7 @@ import { Container, Icon, IconButton, Content, Footer } from 'rsuite';
 import WaterWave from 'react-water-wave';
 import { useSwipeable } from 'react-swipeable';
 import StartPanelHeader from './StartPanelHeader';
+import '../../styles/text-provider.less';
 
 import waterLayerBg from '../../assets/bg.jpg';
 const StoryImage = lazy(() => import('../story/StoryImage'));

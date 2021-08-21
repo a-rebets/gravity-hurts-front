@@ -52,7 +52,7 @@ class TextProvider extends Component {
 	getTopPanelOpacity = () => (this.state.topPanelVisible ? 100 : 0);
 
 	render() {
-		return (
+		return this.props.shown ? (
 			<TextProviderModal
 				contentElRef={this.contentElementRef}
 				isOpen={true}
@@ -90,6 +90,8 @@ class TextProvider extends Component {
 					</FlexboxGrid.Item>
 				</FlexboxGrid>
 			</TextProviderModal>
+		) : (
+			<></>
 		);
 	}
 }

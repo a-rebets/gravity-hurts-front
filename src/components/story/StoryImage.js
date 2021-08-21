@@ -2,11 +2,12 @@ import { FlexboxGrid, Loader, Icon } from 'rsuite';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 import 'react-lazy-load-image-component/src/effects/opacity.css';
-import { cloneElement, useState } from 'react';
+import { cloneElement, lazy, Suspense, useState } from 'react';
 
 import '../../styles/story.less';
 import { useSwipeable } from 'react-swipeable';
-import TextProvider from '../util/TextProvider';
+
+const TextProvider = lazy(() => import('../util/TextProvider'));
 
 const swipeConfig = {
 	delta: 50,
@@ -28,7 +29,7 @@ const StoryImage = ({ source }) => {
 	);
 
 	const backgroundImgProps = {
-		className: 'object-cover select-none',
+		className: 'object-cover',
 		wrapperClassName: 'relative z-20',
 		height: '100%',
 		afterLoad: () => {},
@@ -56,12 +57,20 @@ const StoryImage = ({ source }) => {
 					<>
 						<div
 							{...textShowSwipeHandlers}
-							className='absolute bottom-0 left-0 w-full z-40 py-8'
+							className='absolute bottom-0 left-0 w-full z-40 pt-12 pb-6'
 						>
 							<FlexboxGrid justify='center'>
 								<FlexboxGrid.Item>
-									<Icon className='text-show-icon' icon='arrow-up2' size='2x' />
-									<TextProvider isOpen={textShown} />
+									{!textShown && (
+										<Icon
+											className='text-show-icon'
+											icon='arrow-up2'
+											size='2x'
+										/>
+									)}
+									<Suspense fallback={<></>}>
+										{textShown && <TextProvider closeCallback={settextShown} />}
+									</Suspense>
 								</FlexboxGrid.Item>
 							</FlexboxGrid>
 						</div>

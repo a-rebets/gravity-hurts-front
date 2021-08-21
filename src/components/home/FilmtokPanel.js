@@ -9,7 +9,7 @@ const Filmtok = () => {
 			<Header className='flex justify-center my-8 z-10'>
 				<Icon icon='logo-video' size='4x' />
 			</Header>
-			<Content className='z-10 select-none'>
+			<Content className='z-10'>
 				<Grid fluid>
 					<Row>
 						<Col xs={24}>

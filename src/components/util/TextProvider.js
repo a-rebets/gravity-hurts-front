@@ -1,62 +1,97 @@
-import Modal from 'react-modal';
+import { Component, createRef } from 'react';
 import { FlexboxGrid } from 'rsuite';
+import TextProviderModal from './TextProviderModal';
 
-Modal.setAppElement('#root');
+class TextProvider extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			blurLevel: 0,
+			scrollEventSet: false,
+			topPanelVisible: false,
+		};
+		this.prevScrollY = createRef();
+		this.prevScrollY.current = 0;
+	}
 
-const TextProvider = ({ isOpen }) => {
-	return (
-		<Modal
-			isOpen={isOpen}
-			onAfterOpen={() => {}}
-			onRequestClose={() => {}}
-			contentLabel='Example Modal'
-			style={{
-				overlay: {
-					zIndex: 40,
-					backgroundColor: 'rgba(0, 0, 0, 0.2)',
-				},
-				content: {
-					top: 0,
-					left: 0,
-					right: 0,
-					bottom: 0,
-					border: 'none',
-					borderRadius: '0',
-					background: 'none',
-					overflow: 'auto',
-					WebkitOverflowScrolling: 'touch',
-				},
-			}}
-		>
-			<FlexboxGrid justify='center' className='text-provider-panel top-panel'>
-				<FlexboxGrid.Item>
-					<h4>Upper panel</h4>
-				</FlexboxGrid.Item>
-			</FlexboxGrid>
-			<p className='text-provider-content'>
-				Proin rutrum tristique metus ut dignissim. Aenean libero nisl, pretium
-				eget elit blandit, auctor placerat nulla. Ut in gravida sapien. Mauris
-				ullamcorper augue suscipit vestibulum auctor. Phasellus porta laoreet
-				velit eget feugiat. Integer consectetur nisi nec purus posuere, a
-				venenatis mauris fermentum. Etiam sit amet varius mi. Sed porttitor mi
-				felis, mollis vestibulum purus ornare molestie. Proin consectetur
-				imperdiet est, a pretium dolor suscipit eget. Fusce tristique
-				scelerisque felis ut ornare. Aenean molestie diam risus, et dictum lacus
-				laoreet eu. Curabitur eget lorem posuere ligula eleifend volutpat.
-				Vestibulum ut tristique felis. Nunc nibh lacus, convallis ac nisl et,
-				dignissim sodales sem. Morbi ultricies arcu lacus, a mollis urna
-				placerat vel. Sed porttitor fermentum justo.
-			</p>
-			<FlexboxGrid
-				justify='center'
-				className='text-provider-panel bottom-panel'
+	componentWillUnmount() {
+		this.content.removeEventListener('scroll', this.handleScroll);
+	}
+
+	contentElementRef = (el) => {
+		if (!this.state.scrollEventSet) {
+			this.content = el;
+			el.addEventListener('scroll', this.handleScroll, {
+				passive: true,
+			});
+			this.setState({ scrollEventSet: true });
+		}
+	};
+
+	handleScroll = (e) => {
+		const currScrollY = e.target.scrollTop;
+		if (this.prevScrollY.current !== currScrollY) {
+			const calc =
+				2 * Math.floor(((currScrollY / (0.5 * e.target.clientHeight)) * 8) / 2);
+			if (calc !== this.state.blurLevel && calc >= 0) {
+				this.setState({ blurLevel: calc > 8 ? 8 : calc });
+				this.switchTopPanel(calc);
+			}
+			this.prevScrollY.current = currScrollY;
+		}
+	};
+
+	switchTopPanel = (scrollVal) => {
+		if (this.state.topPanelVisible && scrollVal < 12) {
+			this.setState({ topPanelVisible: false });
+		} else if (!this.state.topPanelVisible && scrollVal >= 12) {
+			this.setState({ topPanelVisible: true });
+		}
+	};
+
+	getTopPanelOpacity = () => (this.state.topPanelVisible ? 100 : 0);
+
+	render() {
+		return (
+			<TextProviderModal
+				contentElRef={this.contentElementRef}
+				isOpen={true}
+				closeCallback={this.props.closeCallback}
+				blurLevel={this.state.blurLevel}
 			>
-				<FlexboxGrid.Item>
-					<h4>Bottom panel</h4>
-				</FlexboxGrid.Item>
-			</FlexboxGrid>
-		</Modal>
-	);
-};
+				<FlexboxGrid
+					justify='center'
+					className={`text-provider-panel top-panel opacity-${this.getTopPanelOpacity()}`}
+				>
+					<FlexboxGrid.Item>
+						<h4>Upper panel</h4>
+					</FlexboxGrid.Item>
+				</FlexboxGrid>
+				<p className='text-provider-content'>
+					Proin rutrum tristique metus ut dignissim. Aenean libero nisl, pretium
+					eget elit blandit, auctor placerat nulla. Ut in gravida sapien. Mauris
+					ullamcorper augue suscipit vestibulum auctor. Phasellus porta laoreet
+					velit eget feugiat. Integer consectetur nisi nec purus posuere, a
+					venenatis mauris fermentum. Etiam sit amet varius mi. Sed porttitor mi
+					felis, mollis vestibulum purus ornare molestie. Proin consectetur
+					imperdiet est, a pretium dolor suscipit eget. Fusce tristique
+					scelerisque felis ut ornare. Aenean molestie diam risus, et dictum
+					lacus laoreet eu. Curabitur eget lorem posuere ligula eleifend
+					volutpat. Vestibulum ut tristique felis. Nunc nibh lacus, convallis ac
+					nisl et, dignissim sodales sem. Morbi ultricies arcu lacus, a mollis
+					urna placerat vel. Sed porttitor fermentum justo.
+				</p>
+				<FlexboxGrid
+					justify='center'
+					className='text-provider-panel bottom-panel'
+				>
+					<FlexboxGrid.Item>
+						<h4>Bottom panel</h4>
+					</FlexboxGrid.Item>
+				</FlexboxGrid>
+			</TextProviderModal>
+		);
+	}
+}
 
 export default TextProvider;

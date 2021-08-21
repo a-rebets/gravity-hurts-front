@@ -24,7 +24,7 @@ const localized = {
 	},
 };
 
-const Countdown = ({ digitSpan, textSpan }) => {
+const Countdown = () => {
 	const parseLocal = useCallback((obj) => {
 		let res = {};
 		for (const [key, value] of Object.entries(obj)) {
@@ -69,11 +69,11 @@ const Countdown = ({ digitSpan, textSpan }) => {
 		timerComponents.push(
 			<Row key={`countdown-row-${ind}`}>
 				<Col xs={24}>
-					<FlexboxGrid align='bottom'>
-						<FlexboxGrid.Item colspan={digitSpan}>
+					<FlexboxGrid justify='center' align='bottom'>
+						<FlexboxGrid.Item>
 							<p>{timeLeft[interval]}</p>
 						</FlexboxGrid.Item>
-						<FlexboxGrid.Item colspan={textSpan}>
+						<FlexboxGrid.Item>
 							<p>{interval}</p>
 						</FlexboxGrid.Item>
 					</FlexboxGrid>

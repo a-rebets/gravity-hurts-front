@@ -4,7 +4,6 @@ import { Carousel } from 'rsuite';
 import TimeMachine from '../components/home/TimeMachinePanel';
 import Start from '../components/home/StartPanel';
 import Filmtok from '../components/home/FilmtokPanel';
-import NotificationDrawer from '../components/home/NotificationDrawer';
 import '../styles/home.less';
 
 const swipeConfig = {
@@ -19,7 +18,6 @@ const pageStates = Array(3)
 const HomePage = () => {
 	const carouselRef = useRef(null);
 
-	const [drawerShown, setdrawerShown] = useState(false);
 	const [storyShown, setstoryShown] = useState(false);
 	const [modalBlocking, setmodalBlocking] = useState(false);
 
@@ -48,11 +46,6 @@ const HomePage = () => {
 		...swipeConfig,
 	});
 
-	const drawerSwipeHandlers = useSwipeable({
-		onSwipedLeft: () => setdrawerShown(false),
-		...{ ...swipeConfig, delta: 100 },
-	});
-
 	return (
 		<>
 			<div {...swipeHandlers} className='swipe-provider h-full'>
@@ -64,22 +57,14 @@ const HomePage = () => {
 				>
 					<Start
 						key={1}
-						drawer={{ shown: drawerShown, setShown: setdrawerShown }}
-						globalModal={{
-							blocking: modalBlocking,
-							setBlocking: setmodalBlocking,
-						}}
+						globalModalBlocking={modalBlocking}
+						setGlobalModalBlocking={setmodalBlocking}
 						story={{ shown: storyShown, setShown: setstoryShown }}
 					/>
 					<TimeMachine key={2} />
 					<Filmtok key={3} />
 				</Carousel>
 			</div>
-			<NotificationDrawer
-				swipeHandlers={drawerSwipeHandlers}
-				shown={drawerShown}
-				callback={() => setdrawerShown(false)}
-			/>
 		</>
 	);
 };

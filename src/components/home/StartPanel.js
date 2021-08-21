@@ -1,49 +1,60 @@
-import {
-	Badge,
-	FlexboxGrid,
-	Container,
-	Header,
-	Icon,
-	IconButton,
-	Content,
-	Footer,
-} from 'rsuite';
+import { lazy, memo, Suspense, useCallback, useEffect, useState } from 'react';
+import { Container, Icon, IconButton, Content, Footer } from 'rsuite';
 import WaterWave from 'react-water-wave';
+import { useSwipeable } from 'react-swipeable';
+import StartPanelHeader from './StartPanelHeader';
+
 import waterLayerBg from '../../assets/bg.jpg';
-import { memo, useEffect, useState } from 'react';
-import Player from '../player/Player';
-
-import StoryImage from '../story/StoryImage';
-
-import testImg from '../../assets/krakow.jpeg';
+const StoryImage = lazy(() => import('../story/StoryImage'));
+const NotificationDrawer = lazy(() => import('./NotificationDrawer'));
 
 const WaterSwitch = ({
 	waterEffectCallback,
 	waterActive,
 	globalModalBlocking,
-	drawerShown,
 }) => {
 	useEffect(() => {
-		if ((globalModalBlocking && waterActive) || (drawerShown && waterActive)) {
+		if (globalModalBlocking && waterActive) {
 			waterEffectCallback.pause();
-		}
-		if (!globalModalBlocking && !drawerShown && !waterActive) {
+		} else if (!globalModalBlocking && !waterActive) {
 			waterEffectCallback.play();
 		}
-	}, [waterActive, drawerShown, waterEffectCallback, globalModalBlocking]);
+	}, [waterActive, waterEffectCallback, globalModalBlocking]);
 
 	return <></>;
 };
 
-const Start = memo(({ drawer, globalModal, story }) => {
+const drawerSwipeConfig = {
+	delta: 100,
+	trackTouch: true,
+	trackMouse: true,
+};
+
+const headerGreeting = (
+	<>
+		<h3 className='greeting'>Привет, Поля</h3>
+		<h3 className='inline-block'>&nbsp;😊</h3>
+	</>
+);
+
+const Start = memo(({ globalModalBlocking, setGlobalModalBlocking, story }) => {
 	const [waterActive, setwaterActive] = useState(true);
+	const [drawerShown, setdrawerShown] = useState(false);
 
-	const toggleStory = () => {
-		globalModal.setBlocking(true);
-		story.setShown(true);
-	};
+	const openDrawer = useCallback(() => {
+		setdrawerShown(true);
+		setGlobalModalBlocking(true);
+	}, [setGlobalModalBlocking]);
 
-	const openDrawer = () => drawer.setShown(true);
+	const toggleStory = useCallback(() => {
+		story.setShown(!story.shown);
+		setGlobalModalBlocking(!story.shown);
+	}, [story, setGlobalModalBlocking]);
+
+	const drawerSwipeHandlers = useSwipeable({
+		onSwipedLeft: () => setdrawerShown(false),
+		...drawerSwipeConfig,
+	});
 
 	const getWaterCallbacks = (obj) => ({
 		play: () => {
@@ -65,52 +76,42 @@ const Start = memo(({ drawer, globalModal, story }) => {
 				const waterCallbacks = getWaterCallbacks({ play, pause });
 				return (
 					<Container className='wrapper'>
-						<Header className='mt-12'>
-							<FlexboxGrid>
-								<FlexboxGrid.Item className='bg-gray-600 bg-opacity-80 pl-6 pr-4'>
-									<h3 className='greeting'>Привет, Поля</h3>
-									<h3 className='inline-block'>&nbsp;😊</h3>
-								</FlexboxGrid.Item>
-							</FlexboxGrid>
-							<FlexboxGrid
-								align='middle'
-								justify='space-between'
-								className='toolbar'
-							>
-								<FlexboxGrid.Item className='px-6'>
-									<Player setModalBlock={globalModal.setBlocking} />
-								</FlexboxGrid.Item>
-								<FlexboxGrid.Item className='pr-6'>
-									<Badge content={2}>
-										<IconButton
-											onClick={openDrawer}
-											size='lg'
-											appearance='primary'
-											icon={<Icon icon='bell' />}
-										/>
-									</Badge>
-								</FlexboxGrid.Item>
-							</FlexboxGrid>
-						</Header>
+						<StartPanelHeader
+							greeting={headerGreeting}
+							setModalBlock={setGlobalModalBlocking}
+							drawerCallback={openDrawer}
+						/>
 						<Content></Content>
 						<Footer className='flex justify-center p-6 relative'>
 							<div id='circle'>
 								<IconButton
 									appearance='ghost'
-									size='lg'
 									circle
 									icon={<Icon icon='file-text' />}
 									onClick={toggleStory}
 								/>
 							</div>
 						</Footer>
-						{story.shown && <StoryImage source={testImg} />}
+						<Suspense fallback={<></>}>
+							<StoryImage source={'https://i.redd.it/kf3udx08nbl21.jpg'} />
+						</Suspense>
 						<WaterSwitch
 							waterEffectCallback={waterCallbacks}
-							drawerShown={drawer.shown}
-							globalModalBlocking={globalModal.blocking}
+							globalModalBlocking={globalModalBlocking}
 							waterActive={waterActive}
 						/>
+						<Suspense fallback={<></>}>
+							<NotificationDrawer
+								swipeHandlers={drawerSwipeHandlers}
+								shown={drawerShown}
+								closeCallback={() => {
+									setdrawerShown(false);
+								}}
+								modalCallback={() => {
+									setGlobalModalBlocking(false);
+								}}
+							/>
+						</Suspense>
 					</Container>
 				);
 			}}

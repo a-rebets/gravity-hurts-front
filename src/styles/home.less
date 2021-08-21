@@ -1,4 +1,5 @@
 @import (reference) './custom-theme.less';
+@import './text-provider.less';
 
 @gradient-accent: rgba(209, 213, 219, 0.85);
 
@@ -20,6 +21,7 @@ body {
 
 	.rs-carousel-slider-item {
 		@apply w-1/3;
+		background-color: #292d33;
 	}
 
 	&.story-open .rs-carousel-content {
@@ -47,7 +49,7 @@ body {
 		@gradient-accent 60%,
 		#fff 75%
 	);
-	@apply select-none inline-block bg-clip-text text-black;
+	@apply inline-block bg-clip-text text-black;
 	background-size: 200% auto;
 	-webkit-text-fill-color: transparent;
 	animation: shine 3s linear infinite;

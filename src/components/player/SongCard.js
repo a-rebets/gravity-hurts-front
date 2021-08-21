@@ -61,7 +61,7 @@ const SongCard = () => {
 					) : (
 						<Placeholder.Graph
 							active
-							style={{ width: '100%', height: '200px' }}
+							style={{ width: '100%', height: '190px' }}
 						/>
 					)}
 				</FlexboxGrid.Item>

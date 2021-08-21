@@ -37,7 +37,7 @@ const HomePage = () => {
 			if (!modalBlocking) {
 				switchCarousel(pageStates[getNewInd()]);
 				Alert.info(
-					`${window.innerWidth}--${window.innerHeight}--${window.screen.width}--${window.screen.height}`,
+					`${window.innerWidth}--${window.innerHeight}--${window.screen.width}--${window.screen.height}--${document.clientWidth}--${document.clientHeight}`,
 					20000
 				);
 			}

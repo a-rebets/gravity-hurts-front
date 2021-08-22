@@ -10,11 +10,12 @@ export default function TextProviderModal(props) {
 			onRequestClose={() => {}}
 			contentRef={props.contentElRef}
 			contentLabel='Story overlay text'
+			htmlOpenClassName='ReactModal__Html--open'
 			style={{
 				overlay: {
 					zIndex: 40,
 					backgroundColor: `rgba(0, 0, 0, ${
-						Math.round((props.blurLevel / 8) * 0.3 * 100) / 100
+						Math.round((props.blurLevel / 8) * 0.4 * 100) / 100
 					})`,
 					transition: 'background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
 				},

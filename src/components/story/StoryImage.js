@@ -42,7 +42,7 @@ const StoryImage = ({ source }) => {
 				wheel={{ disabled: true }}
 				doubleClick={{ disabled: true }}
 				zoomAnimation={{ disabled: true }}
-				initialPositionY={100}
+				initialPositionX={0}
 				disabled={textShown}
 				onInit={(ref) => ref.centerView(1)}
 			>

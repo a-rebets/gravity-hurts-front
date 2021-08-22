@@ -1,5 +1,5 @@
 import { Component, createRef } from 'react';
-import { FlexboxGrid } from 'rsuite';
+import { Alert, FlexboxGrid } from 'rsuite';
 import TextProviderModal from './TextProviderModal';
 
 class TextProvider extends Component {
@@ -32,6 +32,7 @@ class TextProvider extends Component {
 
 	handleScroll = (e) => {
 		const currScrollY = e.target.scrollTop;
+		Alert.info('Text scrolling detected!', 10000);
 		if (this.prevScrollY.current !== currScrollY) {
 			const proportion = currScrollY / (0.5 * window.innerHeight);
 			const calc = 2 * Math.floor((proportion * 8) / 2);

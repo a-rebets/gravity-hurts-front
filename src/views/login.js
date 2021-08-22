@@ -98,8 +98,8 @@ const LoginPage = ({ setToken }) => {
 	}
 
 	return (
-		<Container className='h-full'>
-			<Header className='login-header py-10 px-4'>
+		<Container className='wrapper login'>
+			<Header className='login-header'>
 				<LoginBlob />
 				<h1>Введи</h1>
 				<h1>свой пароль</h1>

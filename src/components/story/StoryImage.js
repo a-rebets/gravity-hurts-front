@@ -1,8 +1,8 @@
-import { FlexboxGrid, Loader, Icon } from 'rsuite';
+import { FlexboxGrid, Icon } from 'rsuite';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 import 'react-lazy-load-image-component/src/effects/opacity.css';
-import { cloneElement, lazy, Suspense, useState } from 'react';
+import { lazy, Suspense, useState } from 'react';
 
 import '../../styles/story.less';
 import { useSwipeable } from 'react-swipeable';
@@ -15,25 +15,17 @@ const swipeConfig = {
 	trackMouse: true,
 };
 
+const backgroundImgProps = {
+	className: 'object-cover',
+	wrapperClassName: 'relative z-20',
+	height: '100%',
+	effect: 'opacity',
+	alt: 'story background',
+	width: '100%',
+};
+
 const StoryImage = ({ source }) => {
-	const [loading, setloading] = useState(true);
 	const [textShown, settextShown] = useState(false);
-
-	const loadedImg = (
-		<LazyLoadImage
-			effect='opacity'
-			alt='story image'
-			width='100%'
-			src={source}
-		/>
-	);
-
-	const backgroundImgProps = {
-		className: 'object-cover',
-		wrapperClassName: 'relative z-20',
-		height: '100%',
-		afterLoad: () => {},
-	};
 
 	const textShowSwipeHandlers = useSwipeable({
 		onSwipedUp: () => {
@@ -45,15 +37,16 @@ const StoryImage = ({ source }) => {
 	});
 
 	return (
-		<div className='story-modal absolute w-full h-full z-20 top-0 left-0'>
+		<div className='story-modal absolute w-full h-full top-0 left-0'>
 			<TransformWrapper
 				wheel={{ disabled: true }}
 				doubleClick={{ disabled: true }}
 				zoomAnimation={{ disabled: true }}
 				initialPositionY={100}
 				disabled={textShown}
+				onInit={(ref) => ref.centerView(1)}
 			>
-				{({ centerView }) => (
+				{() => (
 					<>
 						{!textShown && (
 							<div
@@ -65,7 +58,7 @@ const StoryImage = ({ source }) => {
 										<Icon
 											className='text-show-icon'
 											icon='arrow-up2'
-											size='2x'
+											size='lg'
 										/>
 									</FlexboxGrid.Item>
 								</FlexboxGrid>
@@ -79,30 +72,12 @@ const StoryImage = ({ source }) => {
 								position: 'absolute',
 							}}
 						>
-							{cloneElement(
-								loadedImg,
-								{
-									afterLoad: () => {
-										centerView(1);
-										setloading(false);
-									},
-								},
-								null
-							)}
+							<img src={source} alt='story headline' className='w-full' />
 						</TransformComponent>
 					</>
 				)}
 			</TransformWrapper>
-			{cloneElement(loadedImg, backgroundImgProps, null)}
-			{loading && (
-				<Loader
-					className='z-30'
-					size='lg'
-					backdrop
-					content='Загружаем...'
-					vertical
-				/>
-			)}
+			<LazyLoadImage {...backgroundImgProps} src={source} />
 			<Suspense fallback={<></>}>
 				<TextProvider shown={textShown} closeCallback={settextShown} />
 			</Suspense>

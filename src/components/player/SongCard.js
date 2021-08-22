@@ -24,9 +24,12 @@ const SongCard = () => {
 			handleTitleMarquee();
 			handleAlbumSize();
 		}
-		setTimeout(() => {
+		const loadingFunc = setTimeout(() => {
 			setLoaded(true);
 		}, 2000);
+		return () => {
+			clearTimeout(loadingFunc);
+		};
 	}, [loaded]);
 
 	const handleTitleMarquee = () => {
@@ -43,15 +46,15 @@ const SongCard = () => {
 	};
 
 	const title = (
-		<h4 className='inline-block max-w-full px-6' ref={songTitleRef}>
+		<h5 className='inline-block max-w-full px-6' ref={songTitleRef}>
 			<a href='https://example.com'>Let's fall in love for the night</a>
-		</h4>
+		</h5>
 	);
 
 	return (
 		<>
 			<FlexboxGrid justify='center'>
-				<FlexboxGrid.Item colspan={12}>
+				<FlexboxGrid.Item colspan={11}>
 					{loaded ? (
 						<img
 							src='https://images.genius.com/b93a62e41ee43d801cbd94e2013c22e0.1000x1000x1.jpg'
@@ -61,19 +64,19 @@ const SongCard = () => {
 					) : (
 						<Placeholder.Graph
 							active
-							style={{ width: '100%', height: '190px' }}
+							style={{ width: '100%', height: '170px' }}
 						/>
 					)}
 				</FlexboxGrid.Item>
 			</FlexboxGrid>
 			{loaded ? (
 				<>
-					<FlexboxGrid justify='center' className='py-4'>
+					<FlexboxGrid justify='center' className='py-7'>
 						<FlexboxGrid.Item className={titleOverflow ? 'max-w-full' : ''}>
 							{titleOverflow ? (
 								<Marquee
 									gradientColor={[41, 45, 51]}
-									gradientWidth={60}
+									gradientWidth={55}
 									pauseOnHover
 									loop={2}
 									delay={3}
@@ -104,12 +107,11 @@ const SongCard = () => {
 							</p>
 						</FlexboxGrid.Item>
 					</FlexboxGrid>
-					<Divider className='text-lg'>2017</Divider>
+					<Divider className='text-base'>2017</Divider>
 					<FlexboxGrid justify='center'>
 						<FlexboxGrid.Item>
 							<IconButton
 								appearance='ghost'
-								size='lg'
 								icon={<Icon icon='external-link' />}
 							>
 								Показать текст
@@ -119,7 +121,7 @@ const SongCard = () => {
 				</>
 			) : (
 				<>
-					<Paragraph className='loader' rows={3} active />
+					<Paragraph className='loader' rows={2} active />
 					<Paragraph className='loader' rows={2} active />
 				</>
 			)}

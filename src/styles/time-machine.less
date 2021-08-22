@@ -1,7 +1,7 @@
-@loader-size: 50px;
+@loader-size: 35px;
 
 .wrapper.timemachine {
-	@apply px-9 py-10;
+	@apply px-10 pt-10 pb-6;
 }
 
 .loading {
@@ -39,32 +39,34 @@
 	}
 }
 
-.countdown {
-	.rs-row {
-		@apply mb-5;
+.timemachine-content {
+	.countdown {
+		.rs-row {
+			@apply mb-5;
+		}
+
+		.rs-flex-box-grid .rs-flex-box-grid-item {
+			p {
+				@apply italic font-light;
+				font-family: 'Bitter', serif;
+			}
+
+			&:first-child p {
+				@apply text-5xl text-right pr-2;
+			}
+			&:last-child p {
+				@apply text-3xl pl-1 leading-tight;
+			}
+		}
 	}
 
-	.rs-flex-box-grid .rs-flex-box-grid-item {
-		p {
-			@apply italic font-light;
-			font-family: 'Bitter', serif;
-		}
-
-		&:first-child p {
-			@apply text-6xl text-right pr-2;
-		}
-		&:last-child p {
-			@apply text-4xl pl-2 leading-tight;
-		}
+	.rs-tag {
+		@apply text-base mt-5;
 	}
-}
-
-.timemachine-content .rs-tag {
-	@apply text-xl my-2;
 }
 
 .progress {
-	@apply w-full h-4 bg-gray-500 rounded-2xl overflow-hidden;
+	@apply w-full h-3 bg-gray-500 rounded-2xl overflow-hidden;
 
 	.progress-bar {
 		@apply block h-full;

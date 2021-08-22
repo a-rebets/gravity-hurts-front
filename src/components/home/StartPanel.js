@@ -33,8 +33,8 @@ const drawerSwipeConfig = {
 
 const headerGreeting = (
 	<>
-		<h3 className='greeting'>Привет, Поля</h3>
-		<h3 className='inline-block'>&nbsp;😊</h3>
+		<h4 className='greeting'>Привет, Поля</h4>
+		<h4 className='inline-block'>&nbsp;😊</h4>
 	</>
 );
 

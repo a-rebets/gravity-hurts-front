@@ -1,35 +1,29 @@
-@keyframes float {
-	0% {
-		opacity: 0.3;
-		transform: translateY(0px);
-	}
-	50% {
-		opacity: 1;
-		transform: translateY(-15px);
-	}
-	100% {
-		opacity: 0.3;
-		transform: translateY(0px);
-	}
-}
-
 .story-modal {
 	clip-path: circle(1rem at 50% 92%);
 	visibility: hidden;
+	transition: clip-path 0.7s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
 
 	.story-open & {
 		visibility: visible;
-		animation: open-story 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 		clip-path: circle(75%);
-	}
-
-	@keyframes open-story {
-		from {
-			clip-path: circle(1rem at 50% 92%);
-		}
 	}
 
 	.text-show-icon {
 		animation: float 2.5s ease-in-out infinite;
+	}
+
+	@keyframes float {
+		0% {
+			opacity: 0.3;
+			transform: translateY(0px);
+		}
+		50% {
+			opacity: 1;
+			transform: translateY(-15px);
+		}
+		100% {
+			opacity: 0.3;
+			transform: translateY(0px);
+		}
 	}
 }

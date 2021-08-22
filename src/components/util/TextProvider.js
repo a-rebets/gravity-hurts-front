@@ -15,7 +15,9 @@ class TextProvider extends Component {
 	}
 
 	componentWillUnmount() {
-		this.content.removeEventListener('scroll', this.handleScroll);
+		if (this.state.scrollEventSet) {
+			this.content.removeEventListener('scroll', this.handleScroll);
+		}
 	}
 
 	contentElementRef = (el) => {
@@ -31,8 +33,8 @@ class TextProvider extends Component {
 	handleScroll = (e) => {
 		const currScrollY = e.target.scrollTop;
 		if (this.prevScrollY.current !== currScrollY) {
-			const calc =
-				2 * Math.floor(((currScrollY / (0.5 * e.target.clientHeight)) * 8) / 2);
+			const proportion = currScrollY / (0.5 * window.innerHeight);
+			const calc = 2 * Math.floor((proportion * 8) / 2);
 			if (calc !== this.state.blurLevel && calc >= 0) {
 				this.setState({ blurLevel: calc > 8 ? 8 : calc });
 				this.switchTopPanel(calc);
@@ -64,7 +66,7 @@ class TextProvider extends Component {
 					className={`text-provider-panel top-panel opacity-${this.getTopPanelOpacity()}`}
 				>
 					<FlexboxGrid.Item>
-						<h4>Upper panel</h4>
+						<h5>Upper panel</h5>
 					</FlexboxGrid.Item>
 				</FlexboxGrid>
 				<p className='text-provider-content'>
@@ -86,7 +88,7 @@ class TextProvider extends Component {
 					className='text-provider-panel bottom-panel'
 				>
 					<FlexboxGrid.Item>
-						<h4>Bottom panel</h4>
+						<h5>Bottom panel</h5>
 					</FlexboxGrid.Item>
 				</FlexboxGrid>
 			</TextProviderModal>

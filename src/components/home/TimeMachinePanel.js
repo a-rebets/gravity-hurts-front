@@ -28,22 +28,22 @@ const TimeMachine = memo(() => {
 					</Row>
 					<Row>
 						<Col xs={24}>
-							<h3 className='font-medium text-center'>Машина времени</h3>
+							<h4 className='text-center'>Машина времени</h4>
 						</Col>
 					</Row>
 				</Grid>
 			</Header>
-			<Content className='timemachine-content pt-5 pb-8'>
+			<Content className='timemachine-content pt-5'>
 				<Countdown />
 				<FlexboxGrid justify='center'>
 					<FlexboxGridItem>
-						<Tag>до: твоего приезда</Tag>
+						<Tag>до : твоего приезда</Tag>
 					</FlexboxGridItem>
 				</FlexboxGrid>
 			</Content>
 			<Footer>
 				<RainbowProgress progress={70} />
-				<FlexboxGrid justify='space-between' className='py-3 px-1'>
+				<FlexboxGrid justify='space-between' className='py-2 px-1'>
 					<FlexboxGridItem>
 						<h2>🇧🇾</h2>
 					</FlexboxGridItem>

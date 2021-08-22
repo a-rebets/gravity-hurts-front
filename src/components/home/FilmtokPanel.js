@@ -6,24 +6,24 @@ import '../../styles/filmtok.less';
 const Filmtok = () => {
 	return (
 		<Container className='filmtok wrapper rs-carousel-slider-item'>
-			<Header className='flex justify-center my-8 z-10'>
-				<Icon icon='logo-video' size='4x' />
+			<Header className='flex justify-center mt-5 mb-7 z-10'>
+				<Icon icon='logo-video' size='3x' />
 			</Header>
 			<Content className='z-10'>
 				<Grid fluid>
 					<Row>
 						<Col xs={24}>
-							<h1 className='text-center font-medium ml-7'>уже скоро . . .</h1>
+							<h2 className='title-announce'>уже скоро . . .</h2>
 						</Col>
 					</Row>
 					<Row>
-						<Col xs={16} xsOffset={4}>
-							<img className='w-full my-10' src={tempImg} alt='miss minutes' />
+						<Col xs={14} xsOffset={5}>
+							<img className='w-full my-9' src={tempImg} alt='miss minutes' />
 						</Col>
 					</Row>
 					<Row>
 						<Col xs={20} xsOffset={2}>
-							<p className='text-xl px-2 text-center'>
+							<p className='text-lg px-4 text-center'>
 								Умное хранилище неограниченного количества любимых сцен из
 								сериалов, фильмов и клипов. Почти как тикток или хайлайты
 								инстаграм сторис, только удобнее

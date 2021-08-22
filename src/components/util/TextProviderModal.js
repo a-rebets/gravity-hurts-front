@@ -28,7 +28,6 @@ export default function TextProviderModal(props) {
 					background: 'none',
 					overflowX: 'hidden',
 					overflowY: 'scroll',
-					WebkitOverflowScrolling: 'touch',
 				},
 			}}
 			contentElement={(contentProps, children) => (

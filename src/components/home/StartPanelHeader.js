@@ -17,7 +17,6 @@ const StartPanelHeader = ({ greeting, setModalBlock, drawerCallback }) => {
 					<Badge content={2}>
 						<IconButton
 							onClick={drawerCallback}
-							size='lg'
 							appearance='primary'
 							icon={<Icon icon='bell' />}
 						/>

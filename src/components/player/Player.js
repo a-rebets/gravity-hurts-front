@@ -36,9 +36,9 @@ class Player extends Component {
 
 	loadUrl = (url) => this.setState({ url: url });
 
-	toggleModal = (modalShown) => {
-		this.setState({ modalShown });
-		this.props.setModalBlock(modalShown);
+	openModal = () => {
+		this.setState({ modalShown: true });
+		this.props.setModalBlock(true);
 	};
 
 	togglePlayer = () =>
@@ -69,7 +69,6 @@ class Player extends Component {
 				<ButtonToolbar>
 					<IconButton
 						appearance='primary'
-						size='lg'
 						icon={<Icon icon={this.state.btnIcon} />}
 						placement='left'
 						onClick={this.togglePlayer}
@@ -78,9 +77,8 @@ class Player extends Component {
 						{this.state.btnText}
 					</IconButton>
 					<IconButton
-						onClick={() => this.toggleModal(true)}
+						onClick={this.openModal}
 						appearance='ghost'
-						size='lg'
 						icon={<Icon icon='arrow-down' />}
 					/>
 					<SoundWave enabled={this.state.playing} />
@@ -97,7 +95,8 @@ class Player extends Component {
 				/>
 				<PlayerModal
 					shown={this.state.modalShown}
-					closeCallback={() => this.toggleModal(false)}
+					closeCallback={() => this.setState({ modalShown: false })}
+					modalCallback={() => this.props.setModalBlock(false)}
 				/>
 			</>
 		);

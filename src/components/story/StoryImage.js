@@ -42,7 +42,6 @@ const StoryImage = ({ source }) => {
 				wheel={{ disabled: true }}
 				doubleClick={{ disabled: true }}
 				zoomAnimation={{ disabled: true }}
-				initialPositionX={0}
 				disabled={textShown}
 				onInit={(ref) => ref.centerView(1)}
 			>
@@ -72,7 +71,11 @@ const StoryImage = ({ source }) => {
 								position: 'absolute',
 							}}
 						>
-							<img src={source} alt='story headline' className='w-full' />
+							<img
+								src={source}
+								alt='story headline'
+								className='w-full filter blur-0'
+							/>
 						</TransformComponent>
 					</>
 				)}

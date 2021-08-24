@@ -65,17 +65,14 @@ const StoryImage = ({ source }) => {
 						)}
 						<TransformComponent
 							wrapperClass='z-30 top-0 left-0 backdrop-filter backdrop-blur'
+							contentClass='filter blur-0'
 							wrapperStyle={{
 								height: '100%',
 								width: '100%',
 								position: 'absolute',
 							}}
 						>
-							<img
-								src={source}
-								alt='story headline'
-								className='w-full filter blur-0'
-							/>
+							<img src={source} alt='story headline' className='w-full' />
 						</TransformComponent>
 					</>
 				)}

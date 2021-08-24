@@ -72,7 +72,7 @@ const StoryImage = ({ source }) => {
 								position: 'absolute',
 							}}
 						>
-							<img src={source} alt='story headline' className='w-full' />
+							<img src={source} alt='story headline' className='main-img' />
 						</TransformComponent>
 					</>
 				)}

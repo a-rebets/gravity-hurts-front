@@ -12,9 +12,12 @@
 		animation: float 2.5s ease-in-out infinite;
 	}
 
-	.main-img {
-		@apply w-full;
-		image-rendering: crisp-edges;
+	.main-img-transform {
+		backface-visibility: hidden;
+
+		img {
+			@apply w-full;
+		}
 	}
 
 	@keyframes float {

@@ -39,7 +39,7 @@ const StoryImage = ({ source }) => {
 	return (
 		<div className='story-modal absolute w-full h-full top-0 left-0'>
 			<TransformWrapper
-				wheel={{ disabled: true }}
+				// wheel={{ disabled: true }}
 				doubleClick={{ disabled: true }}
 				zoomAnimation={{ disabled: true }}
 				disabled={textShown}
@@ -65,7 +65,7 @@ const StoryImage = ({ source }) => {
 						)}
 						<TransformComponent
 							wrapperClass='z-30 top-0 left-0 backdrop-filter backdrop-blur'
-							contentClass='filter blur-0'
+							contentClass='main-img-transform'
 							wrapperStyle={{
 								height: '100%',
 								width: '100%',

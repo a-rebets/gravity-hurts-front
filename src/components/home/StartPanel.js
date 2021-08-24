@@ -94,7 +94,11 @@ const Start = memo(({ globalModalBlocking, setGlobalModalBlocking, story }) => {
 							</div>
 						</Footer>
 						<Suspense fallback={<></>}>
-							<StoryImage source={'https://i.redd.it/kf3udx08nbl21.jpg'} />
+							<StoryImage
+								source={
+									'https://free4kwallpapers.com/uploads/originals/2020/02/08/animal-beauty-wallpaper.jpg'
+								}
+							/>
 						</Suspense>
 						<WaterSwitch
 							waterEffectCallback={waterCallbacks}

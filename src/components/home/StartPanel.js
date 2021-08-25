@@ -41,6 +41,7 @@ const headerGreeting = (
 const Start = memo(({ globalModalBlocking, setGlobalModalBlocking, story }) => {
 	const [waterActive, setwaterActive] = useState(true);
 	const [drawerShown, setdrawerShown] = useState(false);
+	const [storyLoaded, setstoryLoaded] = useState(false);
 
 	const openDrawer = useCallback(() => {
 		setdrawerShown(true);
@@ -90,6 +91,7 @@ const Start = memo(({ globalModalBlocking, setGlobalModalBlocking, story }) => {
 									circle
 									icon={<Icon icon='file-text' />}
 									onClick={toggleStory}
+									disabled={!storyLoaded}
 								/>
 							</div>
 						</Footer>
@@ -98,6 +100,7 @@ const Start = memo(({ globalModalBlocking, setGlobalModalBlocking, story }) => {
 								source={
 									'https://free4kwallpapers.com/uploads/originals/2020/02/08/animal-beauty-wallpaper.jpg'
 								}
+								setLoadedCallback={setstoryLoaded}
 							/>
 						</Suspense>
 						<WaterSwitch

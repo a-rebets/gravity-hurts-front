@@ -24,7 +24,7 @@ const backgroundImgProps = {
 	width: '100%',
 };
 
-const StoryImage = ({ source }) => {
+const StoryImage = ({ source, setLoadedCallback }) => {
 	const [textShown, settextShown] = useState(false);
 	const [transformScale, settransformScale] = useState(1);
 
@@ -46,7 +46,7 @@ const StoryImage = ({ source }) => {
 	};
 
 	return (
-		<div className='story-modal absolute w-full h-full top-0 left-0'>
+		<div className='story-modal'>
 			<TransformWrapper
 				doubleClick={{ disabled: true }}
 				minScale={transformScale}
@@ -80,14 +80,34 @@ const StoryImage = ({ source }) => {
 								position: 'absolute',
 							}}
 						>
-							<img src={source} alt='story headline' />
+							<img
+								src={source}
+								alt='story headline'
+								onLoad={() => setLoadedCallback(true)}
+							/>
 						</TransformComponent>
 					</>
 				)}
 			</TransformWrapper>
 			<LazyLoadImage {...backgroundImgProps} src={source} />
 			<Suspense fallback={<></>}>
-				<TextProvider shown={textShown} closeCallback={settextShown} />
+				<TextProvider shown={textShown} closeCallback={settextShown}>
+					<p className='text-provider-content'>
+						Proin rutrum tristique metus ut dignissim. Aenean libero nisl,
+						pretium eget elit blandit, auctor placerat nulla. Ut in gravida
+						sapien. Mauris ullamcorper augue suscipit vestibulum auctor.
+						Phasellus porta laoreet velit eget feugiat. Integer consectetur nisi
+						nec purus posuere, a venenatis mauris fermentum. Etiam sit amet
+						varius mi. Sed porttitor mi felis, mollis vestibulum purus ornare
+						molestie. Proin consectetur imperdiet est, a pretium dolor suscipit
+						eget. Fusce tristique scelerisque felis ut ornare. Aenean molestie
+						diam risus, et dictum lacus laoreet eu. Curabitur eget lorem posuere
+						ligula eleifend volutpat. Vestibulum ut tristique felis. Nunc nibh
+						lacus, convallis ac nisl et, dignissim sodales sem. Morbi ultricies
+						arcu lacus, a mollis urna placerat vel. Sed porttitor fermentum
+						justo.
+					</p>
+				</TextProvider>
 			</Suspense>
 		</div>
 	);

@@ -1,5 +1,5 @@
 import { Component, createRef } from 'react';
-import { FlexboxGrid } from 'rsuite';
+import { Alert, FlexboxGrid } from 'rsuite';
 import TextProviderModal from './TextProviderModal';
 
 class TextProvider extends Component {
@@ -45,8 +45,10 @@ class TextProvider extends Component {
 
 	switchTopPanel = (scrollVal) => {
 		if (this.state.topPanelVisible && scrollVal < 12) {
+			Alert.warning('Hiding the top panel', 5000);
 			this.setState({ topPanelVisible: false });
 		} else if (!this.state.topPanelVisible && scrollVal >= 12) {
+			Alert.warning('Showing the top panel', 5000);
 			this.setState({ topPanelVisible: true });
 		}
 	};
@@ -69,20 +71,7 @@ class TextProvider extends Component {
 						<h5>Upper panel</h5>
 					</FlexboxGrid.Item>
 				</FlexboxGrid>
-				<p className='text-provider-content'>
-					Proin rutrum tristique metus ut dignissim. Aenean libero nisl, pretium
-					eget elit blandit, auctor placerat nulla. Ut in gravida sapien. Mauris
-					ullamcorper augue suscipit vestibulum auctor. Phasellus porta laoreet
-					velit eget feugiat. Integer consectetur nisi nec purus posuere, a
-					venenatis mauris fermentum. Etiam sit amet varius mi. Sed porttitor mi
-					felis, mollis vestibulum purus ornare molestie. Proin consectetur
-					imperdiet est, a pretium dolor suscipit eget. Fusce tristique
-					scelerisque felis ut ornare. Aenean molestie diam risus, et dictum
-					lacus laoreet eu. Curabitur eget lorem posuere ligula eleifend
-					volutpat. Vestibulum ut tristique felis. Nunc nibh lacus, convallis ac
-					nisl et, dignissim sodales sem. Morbi ultricies arcu lacus, a mollis
-					urna placerat vel. Sed porttitor fermentum justo.
-				</p>
+				{this.props.children}
 				<FlexboxGrid
 					justify='center'
 					className='text-provider-panel bottom-panel'

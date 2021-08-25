@@ -26,6 +26,7 @@ const backgroundImgProps = {
 
 const StoryImage = ({ source }) => {
 	const [textShown, settextShown] = useState(false);
+	const [transformScale, settransformScale] = useState(1);
 
 	const textShowSwipeHandlers = useSwipeable({
 		onSwipedUp: () => {
@@ -36,14 +37,22 @@ const StoryImage = ({ source }) => {
 		...swipeConfig,
 	});
 
+	const setImageScale = (ref) => {
+		const img = ref.instance.contentComponent.firstChild;
+		const newScale =
+			Math.round((window.innerWidth / img.offsetWidth) * 100) / 100;
+		settransformScale(newScale);
+		ref.centerView((newScale + 0.005).toFixed(3));
+	};
+
 	return (
 		<div className='story-modal absolute w-full h-full top-0 left-0'>
 			<TransformWrapper
-				// wheel={{ disabled: true }}
 				doubleClick={{ disabled: true }}
+				minScale={transformScale}
 				zoomAnimation={{ disabled: true }}
 				disabled={textShown}
-				onInit={(ref) => ref.centerView(1)}
+				onInit={setImageScale}
 			>
 				{() => (
 					<>
@@ -65,14 +74,13 @@ const StoryImage = ({ source }) => {
 						)}
 						<TransformComponent
 							wrapperClass='z-30 top-0 left-0 backdrop-filter backdrop-blur'
-							contentClass='main-img-transform'
 							wrapperStyle={{
 								height: '100%',
 								width: '100%',
 								position: 'absolute',
 							}}
 						>
-							<img src={source} alt='story headline' className='main-img' />
+							<img src={source} alt='story headline' />
 						</TransformComponent>
 					</>
 				)}

@@ -1,5 +1,5 @@
 import { Component, createRef } from 'react';
-import { Alert, FlexboxGrid } from 'rsuite';
+import { FlexboxGrid } from 'rsuite';
 import TextProviderModal from './TextProviderModal';
 
 class TextProvider extends Component {

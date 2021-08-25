@@ -6,11 +6,9 @@ export default function TextProviderModal(props) {
 	return (
 		<Modal
 			isOpen={props.isOpen}
-			onAfterOpen={() => {}}
 			onRequestClose={() => {}}
 			contentRef={props.contentElRef}
 			contentLabel='Story overlay text'
-			htmlOpenClassName='ReactModal__Html--open'
 			style={{
 				overlay: {
 					zIndex: 40,

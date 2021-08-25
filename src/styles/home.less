@@ -2,9 +2,12 @@
 
 @gradient-accent: rgba(209, 213, 219, 0.85);
 
-html:not(.ReactModal__Html--open),
-body:not(.ReactModal__Body--open) {
+html:not(.ReactModal__Html--open) {
 	@apply fixed;
+
+	body {
+		@apply fixed;
+	}
 }
 
 .wrapper {

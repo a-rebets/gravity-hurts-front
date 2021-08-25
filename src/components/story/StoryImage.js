@@ -32,6 +32,9 @@ const StoryImage = ({ source, setLoadedCallback }) => {
 		onSwipedUp: () => {
 			if (!textShown) {
 				settextShown(true);
+				setTimeout(() => {
+					document.documentElement.classList.add('ReactModal__Html--open');
+				}, 500);
 			}
 		},
 		...swipeConfig,
@@ -42,7 +45,7 @@ const StoryImage = ({ source, setLoadedCallback }) => {
 		const newScale =
 			Math.round((window.innerWidth / img.offsetWidth) * 100) / 100;
 		settransformScale(newScale);
-		ref.centerView((newScale + 0.005).toFixed(3));
+		ref.centerView((newScale + 0.002).toFixed(3));
 	};
 
 	return (
@@ -91,7 +94,11 @@ const StoryImage = ({ source, setLoadedCallback }) => {
 			</TransformWrapper>
 			<LazyLoadImage {...backgroundImgProps} src={source} />
 			<Suspense fallback={<></>}>
-				<TextProvider shown={textShown} closeCallback={settextShown}>
+				<TextProvider
+					shown={textShown}
+					closeCallback={settextShown}
+					topPanelAutohide
+				>
 					<p className='text-provider-content'>
 						Proin rutrum tristique metus ut dignissim. Aenean libero nisl,
 						pretium eget elit blandit, auctor placerat nulla. Ut in gravida

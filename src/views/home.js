@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useSwipeable } from 'react-swipeable';
 import { Carousel } from 'rsuite';
 import TimeMachine from '../components/home/TimeMachinePanel';
@@ -45,6 +45,13 @@ const HomePage = () => {
 		},
 		...swipeConfig,
 	});
+
+	useEffect(() => {
+		document.documentElement.style.setProperty(
+			'--vh',
+			`${window.innerHeight * 0.01}px`
+		);
+	}, []);
 
 	return (
 		<>

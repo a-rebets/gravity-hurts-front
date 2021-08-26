@@ -45,7 +45,7 @@ const StoryImage = ({ source, setLoadedCallback }) => {
 		const newScale =
 			Math.round((window.innerWidth / img.offsetWidth) * 100) / 100;
 		settransformScale(newScale);
-		ref.centerView((newScale + 0.002).toFixed(3));
+		ref.centerView(newScale + 0.002);
 	};
 
 	return (
@@ -53,6 +53,7 @@ const StoryImage = ({ source, setLoadedCallback }) => {
 			<TransformWrapper
 				doubleClick={{ disabled: true }}
 				minScale={transformScale}
+				initialScale={0.1}
 				zoomAnimation={{ disabled: true }}
 				disabled={textShown}
 				onInit={setScale}
@@ -96,7 +97,8 @@ const StoryImage = ({ source, setLoadedCallback }) => {
 			<Suspense fallback={<></>}>
 				<TextProvider
 					shown={textShown}
-					closeCallback={settextShown}
+					changeShownCallback={settextShown}
+					blurDelta={100}
 					topPanelAutohide
 				>
 					<p className='text-provider-content'>

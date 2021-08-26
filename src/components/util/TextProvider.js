@@ -1,5 +1,5 @@
 import { Component, createRef } from 'react';
-import { FlexboxGrid } from 'rsuite';
+import { FlexboxGrid, Icon } from 'rsuite';
 import TextProviderModal from './TextProviderModal';
 
 class TextProvider extends Component {
@@ -11,18 +11,18 @@ class TextProvider extends Component {
 			topPanelVisible: false,
 		};
 		this.prevScrollY = createRef();
-		this.prevScrollY.current = 0;
+		this.prevScrollY.current = -1;
 	}
 
 	componentWillUnmount() {
 		if (this.state.scrollEventSet) {
-			this.content.removeEventListener('scroll', this.handleScroll);
+			this.modalInner.removeEventListener('scroll', this.handleScroll);
 		}
 	}
 
-	contentElementRef = (el) => {
+	initContentElementRef = (el) => {
 		if (!this.state.scrollEventSet) {
-			this.content = el;
+			this.modalInner = el;
 			el.addEventListener('scroll', this.handleScroll, {
 				passive: true,
 			});
@@ -30,14 +30,37 @@ class TextProvider extends Component {
 		}
 	};
 
+	requestOpen = () => {
+		this.content = this.modalInner.getElementsByClassName(
+			'text-provider-content'
+		)[0];
+		if (this.props.topPanelAutohide) {
+			setTimeout(() => {
+				this.content.classList.toggle('activated');
+				this.modalInner.dispatchEvent(new Event('scroll'));
+			}, 200);
+		}
+	};
+
+	requestClose = () => {
+		if (this.props.topPanelAutohide) {
+			this.content.classList.toggle('activated');
+			setTimeout(() => {
+				this.props.changeShownCallback(false);
+			}, 500);
+		}
+	};
+
 	handleScroll = (e) => {
-		const currScrollY = e.target.scrollTop;
+		const currScrollY = e.target.scrollTop + (this.props.blurDelta || 0);
 		if (this.prevScrollY.current !== currScrollY) {
 			const proportion = currScrollY / (0.5 * window.innerHeight);
-			const calc = 2 * Math.floor((proportion * 8) / 2);
-			if (calc !== this.state.blurLevel && calc >= 0) {
-				this.setState({ blurLevel: calc > 8 ? 8 : calc });
-				this.switchTopPanel(calc);
+			const newLevel = 2 * Math.floor((proportion * 8) / 2);
+			if (newLevel !== this.state.blurLevel && newLevel >= 0) {
+				if (newLevel < 8) {
+					this.setState({ blurLevel: newLevel });
+				}
+				this.switchTopPanel(newLevel);
 			}
 			this.prevScrollY.current = currScrollY;
 		}
@@ -56,11 +79,11 @@ class TextProvider extends Component {
 			? `autohide ${this.state.topPanelVisible ? 'shown' : ''}`
 			: '';
 
-		return this.props.shown ? (
+		return (
 			<TextProviderModal
-				contentElRef={this.contentElementRef}
-				isOpen={true}
-				closeCallback={this.props.closeCallback}
+				contentElRef={this.initContentElementRef}
+				isOpen={this.props.shown}
+				openCallback={this.requestOpen}
 				blurLevel={this.state.blurLevel}
 			>
 				<FlexboxGrid
@@ -71,6 +94,11 @@ class TextProvider extends Component {
 						<h5>Upper panel</h5>
 					</FlexboxGrid.Item>
 				</FlexboxGrid>
+				{this.state.blurLevel <= 2 && this.props.topPanelAutohide && (
+					<span className='text-provider-img-icon' onClick={this.requestClose}>
+						<Icon icon='image' size='2x' />
+					</span>
+				)}
 				{this.props.children}
 				<FlexboxGrid
 					justify='center'
@@ -81,8 +109,6 @@ class TextProvider extends Component {
 					</FlexboxGrid.Item>
 				</FlexboxGrid>
 			</TextProviderModal>
-		) : (
-			<></>
 		);
 	}
 }

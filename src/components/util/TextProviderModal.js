@@ -6,7 +6,7 @@ export default function TextProviderModal(props) {
 	return (
 		<Modal
 			isOpen={props.isOpen}
-			onRequestClose={() => {}}
+			onAfterOpen={props.openCallback}
 			contentRef={props.contentElRef}
 			contentLabel='Story overlay text'
 			style={{
@@ -15,7 +15,7 @@ export default function TextProviderModal(props) {
 					backgroundColor: `rgba(0, 0, 0, ${
 						Math.round((props.blurLevel / 8) * 0.4 * 100) / 100
 					})`,
-					transition: 'background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+					transition: 'background-color 0.35s ease',
 				},
 				content: {
 					top: 0,

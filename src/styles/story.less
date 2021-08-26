@@ -9,8 +9,19 @@
 		clip-path: circle(75%);
 	}
 
-	.text-show-icon {
-		animation: float 2.5s ease-in-out infinite;
+	.text-show-icon-wrap {
+		@apply rounded-full p-9 pb-3;
+		background-image: radial-gradient(
+			ellipse 55% 50%,
+			rgba(0, 0, 0, 0.7),
+			rgba(0, 0, 0, 0.55) 60%,
+			transparent
+		);
+
+		.text-show-icon {
+			@apply filter drop-shadow-2xl;
+			animation: float 2.5s ease-in-out infinite;
+		}
 	}
 
 	@keyframes float {

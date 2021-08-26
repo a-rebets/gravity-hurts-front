@@ -98,7 +98,7 @@ const Start = memo(({ globalModalBlocking, setGlobalModalBlocking, story }) => {
 						<Suspense fallback={<></>}>
 							<StoryImage
 								source={
-									'https://free4kwallpapers.com/uploads/originals/2020/02/08/animal-beauty-wallpaper.jpg'
+									'https://i.pinimg.com/originals/3e/51/e5/3e51e5501e47ea39b8da8f06920847ed.jpg'
 								}
 								setLoadedCallback={setstoryLoaded}
 							/>

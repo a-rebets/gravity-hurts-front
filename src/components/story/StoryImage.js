@@ -29,21 +29,14 @@ const StoryImage = ({ source, setLoadedCallback }) => {
 	const [transformScale, settransformScale] = useState(1);
 
 	const textShowSwipeHandlers = useSwipeable({
-		onSwipedUp: () => {
-			if (!textShown) {
-				settextShown(true);
-				setTimeout(() => {
-					document.documentElement.classList.add('ReactModal__Html--open');
-				}, 1000);
-			}
-		},
+		onSwipedUp: () => settextShown(!textShown),
 		...swipeConfig,
 	});
 
 	const setScale = (ref) => {
 		const img = ref.instance.contentComponent.firstChild;
 		const newScale =
-			Math.round((window.innerWidth / img.offsetWidth) * 100) / 100;
+			Math.round((window.innerWidth / img.offsetWidth + 0.005) * 1000) / 1000;
 		settransformScale(newScale);
 		ref.centerView(newScale + 0.002);
 	};
@@ -63,10 +56,10 @@ const StoryImage = ({ source, setLoadedCallback }) => {
 						{!textShown && (
 							<div
 								{...textShowSwipeHandlers}
-								className='absolute bottom-0 left-0 w-full z-40 pt-12 pb-6'
+								className='absolute bottom-0 left-0 w-full z-40 pb-4'
 							>
 								<FlexboxGrid justify='center'>
-									<FlexboxGrid.Item>
+									<FlexboxGrid.Item className='text-show-icon-wrap'>
 										<Icon
 											className='text-show-icon'
 											icon='arrow-up2'

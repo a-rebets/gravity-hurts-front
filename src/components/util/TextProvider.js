@@ -2,14 +2,16 @@ import { Component, createRef } from 'react';
 import { FlexboxGrid, Icon } from 'rsuite';
 import TextProviderModal from './TextProviderModal';
 
+const defaultSetting = {
+	blurLevel: 0,
+	scrollEventSet: false,
+	topPanelVisible: false,
+};
+
 class TextProvider extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {
-			blurLevel: 0,
-			scrollEventSet: false,
-			topPanelVisible: false,
-		};
+		this.state = defaultSetting;
 		this.prevScrollY = createRef();
 		this.prevScrollY.current = -1;
 	}
@@ -21,7 +23,7 @@ class TextProvider extends Component {
 	}
 
 	initContentElementRef = (el) => {
-		if (!this.state.scrollEventSet) {
+		if (!this.state.scrollEventSet && this.props.shown) {
 			this.modalInner = el;
 			el.addEventListener('scroll', this.handleScroll, {
 				passive: true,
@@ -34,6 +36,9 @@ class TextProvider extends Component {
 		this.content = this.modalInner.getElementsByClassName(
 			'text-provider-content'
 		)[0];
+		setTimeout(() => {
+			document.documentElement.classList.add('ReactModal__Html--open');
+		}, 1000);
 		if (this.props.topPanelAutohide) {
 			setTimeout(() => {
 				this.content.classList.toggle('activated');
@@ -43,12 +48,14 @@ class TextProvider extends Component {
 	};
 
 	requestClose = () => {
+		document.documentElement.classList.remove('ReactModal__Html--open');
 		if (this.props.topPanelAutohide) {
 			this.content.classList.toggle('activated');
-			setTimeout(() => {
-				this.props.changeShownCallback(false);
-			}, 500);
 		}
+		setTimeout(() => {
+			this.props.changeShownCallback(false);
+			this.setState(defaultSetting);
+		}, 500);
 	};
 
 	handleScroll = (e) => {
@@ -57,7 +64,7 @@ class TextProvider extends Component {
 			const proportion = currScrollY / (0.5 * window.innerHeight);
 			const newLevel = 2 * Math.floor((proportion * 8) / 2);
 			if (newLevel !== this.state.blurLevel && newLevel >= 0) {
-				if (newLevel < 8) {
+				if (newLevel <= 8) {
 					this.setState({ blurLevel: newLevel });
 				}
 				this.switchTopPanel(newLevel);

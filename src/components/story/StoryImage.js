@@ -1,11 +1,11 @@
+import { lazy, Suspense, useState } from 'react';
 import { FlexboxGrid, Icon } from 'rsuite';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { useSwipeable } from 'react-swipeable';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 import 'react-lazy-load-image-component/src/effects/opacity.css';
-import { lazy, Suspense, useState } from 'react';
 
 import '../../styles/story.less';
-import { useSwipeable } from 'react-swipeable';
 
 const TextProvider = lazy(() => import('../util/TextProvider'));
 
@@ -26,30 +26,33 @@ const backgroundImgProps = {
 
 const StoryImage = ({ source, setLoadedCallback }) => {
 	const [textShown, settextShown] = useState(false);
-	const [transformScale, settransformScale] = useState(1);
+	const [transformScale, settransformScale] = useState(1.0);
+	const [scaleSet, setscaleSet] = useState(false);
 
 	const textShowSwipeHandlers = useSwipeable({
 		onSwipedUp: () => settextShown(!textShown),
 		...swipeConfig,
 	});
 
-	const setScale = (ref) => {
-		const img = ref.instance.contentComponent.firstChild;
-		const newScale =
-			Math.round((window.innerWidth / img.offsetWidth + 0.005) * 1000) / 1000;
-		settransformScale(newScale);
-		ref.centerView(newScale + 0.002);
+	const transformRef = (ref) => {
+		if (ref && !scaleSet) {
+			const img = ref.instance.contentComponent.firstChild;
+			const newScale =
+				Math.round((window.innerWidth / img.offsetWidth + 0.002) * 1000) / 1000;
+			settransformScale(newScale);
+			ref.centerView(newScale + 0.002);
+			setscaleSet(true);
+		}
 	};
 
 	return (
 		<div className='story-modal'>
 			<TransformWrapper
-				doubleClick={{ disabled: true }}
+				ref={transformRef}
 				minScale={transformScale}
-				initialScale={0.1}
+				doubleClick={{ disabled: true }}
 				zoomAnimation={{ disabled: true }}
 				disabled={textShown}
-				onInit={setScale}
 			>
 				{() => (
 					<>

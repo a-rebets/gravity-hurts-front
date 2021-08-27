@@ -98,7 +98,7 @@ const Start = memo(({ globalModalBlocking, setGlobalModalBlocking, story }) => {
 						<Suspense fallback={<></>}>
 							<StoryImage
 								source={
-									'https://i.pinimg.com/originals/3e/51/e5/3e51e5501e47ea39b8da8f06920847ed.jpg'
+									'https://www.xtrafondos.com/wallpapers/vertical/medusa-bajo-el-agua-5796.jpg'
 								}
 								setLoadedCallback={setstoryLoaded}
 							/>

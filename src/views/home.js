@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { useSwipeable } from 'react-swipeable';
 import { Carousel } from 'rsuite';
-import TimeMachine from '../components/home/TimeMachinePanel';
-import Start from '../components/home/StartPanel';
-import Filmtok from '../components/home/FilmtokPanel';
+import TimeMachine from '../components/panels/TimeMachinePanel';
+import Start from '../components/panels/StartPanel';
+import Filmtok from '../components/panels/FilmtokPanel';
 import '../styles/home.less';
 
 const swipeConfig = {

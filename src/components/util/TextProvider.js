@@ -1,6 +1,7 @@
 import { Component, createRef } from 'react';
 import { FlexboxGrid, Icon } from 'rsuite';
 import TextProviderModal from './TextProviderModal';
+import '../../styles/util/text-provider.less';
 
 const defaultSetting = {
 	blurLevel: 0,

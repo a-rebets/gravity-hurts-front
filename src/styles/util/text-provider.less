@@ -1,0 +1,85 @@
+.ReactModal__Body--open {
+	overflow: hidden;
+}
+
+.ReactModal__Content {
+	transition: backdrop-filter 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+	backdrop-filter: blur(0px);
+
+	.generate-blurs(4);
+
+	.generate-blurs(@n, @i: 1) when (@i =< @n) {
+		@blurInd: (@i * 2);
+		&.modal-blur-@{blurInd} {
+			backdrop-filter: blur(@i * 2px);
+		}
+		.generate-blurs(@n, (@i + 1));
+	}
+
+	.text-provider-content {
+		transition: margin-top 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+		@apply font-normal text-xl;
+		font-family: 'Bitter', serif;
+		margin-top: 0;
+		padding-top: calc((var(--vh, 1vh) * 100) - 20px);
+
+		&.activated {
+			margin-top: -100px;
+		}
+	}
+
+	.text-provider-img-icon {
+		@apply block fixed top-1/2 left-1/2 cursor-pointer;
+		animation: fluctuate 1.5s ease-in-out infinite;
+
+		@keyframes fluctuate {
+			0% {
+				transform: translate(-50%, -50%) scale(1);
+			}
+			50% {
+				transform: translate(-50%, -50%) scale(1.08);
+			}
+			100% {
+				transform: translate(-50%, -50%) scale(1);
+			}
+		}
+	}
+
+	.text-provider-panel {
+		@apply fixed w-full left-0;
+		animation: panel-appear 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+
+		&.top-panel {
+			@apply -top-2 pb-12 pt-6;
+			background-image: linear-gradient(
+				to bottom,
+				#1a1a1a 0%,
+				rgba(51, 51, 51, 0.87) 40%,
+				rgba(51, 51, 51, 0) 97%
+			);
+
+			&.autohide {
+				@apply transition-opacity duration-300 opacity-0;
+
+				&.shown {
+					@apply opacity-100;
+				}
+			}
+		}
+		&.bottom-panel {
+			@apply -bottom-2 pt-12 pb-6;
+			background-image: linear-gradient(
+				to top,
+				#1a1a1a 0%,
+				rgba(51, 51, 51, 0.87) 40%,
+				rgba(51, 51, 51, 0) 97%
+			);
+		}
+
+		@keyframes panel-appear {
+			from {
+				opacity: 0;
+			}
+		}
+	}
+}

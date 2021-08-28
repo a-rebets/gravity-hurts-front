@@ -1,11 +1,11 @@
-import { lazy, Suspense, useState } from 'react';
+import { lazy, Suspense, useRef, useState } from 'react';
 import { FlexboxGrid, Icon } from 'rsuite';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useSwipeable } from 'react-swipeable';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
-import 'react-lazy-load-image-component/src/effects/opacity.css';
 
-import '../../styles/story.less';
+import 'react-lazy-load-image-component/src/effects/opacity.css';
+import '../../styles/story/story.less';
 
 const TextProvider = lazy(() => import('../util/TextProvider'));
 
@@ -26,20 +26,23 @@ const backgroundImgProps = {
 
 const StoryImage = ({ source, setLoadedCallback }) => {
 	const [textShown, settextShown] = useState(false);
-	const [transformScale, settransformScale] = useState(1.0);
 	const [scaleSet, setscaleSet] = useState(false);
+	const [minScale, setminScale] = useState(1.0);
+
+	const transformRef = useRef(null);
 
 	const textShowSwipeHandlers = useSwipeable({
 		onSwipedUp: () => settextShown(!textShown),
 		...swipeConfig,
 	});
 
-	const transformRef = (ref) => {
-		if (ref && !scaleSet) {
-			const img = ref.instance.contentComponent.firstChild;
+	const mainImgRef = (img) => {
+		const ref = transformRef.current;
+		if (img && ref && !scaleSet) {
 			const newScale =
 				Math.round((window.innerWidth / img.offsetWidth + 0.002) * 1000) / 1000;
-			settransformScale(newScale);
+			setminScale(newScale);
+			ref.resetTransform();
 			ref.centerView(newScale + 0.002);
 			setscaleSet(true);
 		}
@@ -49,7 +52,7 @@ const StoryImage = ({ source, setLoadedCallback }) => {
 		<div className='story-modal'>
 			<TransformWrapper
 				ref={transformRef}
-				minScale={transformScale}
+				minScale={minScale}
 				doubleClick={{ disabled: true }}
 				zoomAnimation={{ disabled: true }}
 				disabled={textShown}
@@ -84,6 +87,7 @@ const StoryImage = ({ source, setLoadedCallback }) => {
 								src={source}
 								alt='story headline'
 								onLoad={() => setLoadedCallback(true)}
+								ref={mainImgRef}
 							/>
 						</TransformComponent>
 					</>

@@ -14,10 +14,10 @@ function DefaultPage() {
 	return (
 		<Container className='wrapper default'>
 			<Header>
-				<h4 className='text-center pt-8 pb-3'>Привет</h4>
+				<h4 className='text-center pt-8 pb-5'>Привет</h4>
 			</Header>
 			<Content>
-				<FlexboxGrid justify='center' className='py-4'>
+				<FlexboxGrid justify='center'>
 					<FlexboxGrid.Item colspan={20}>
 						<img
 							src={defaultImg}
@@ -40,7 +40,7 @@ function DefaultPage() {
 					</FlexboxGrid.Item>
 				</FlexboxGrid>
 			</Content>
-			<Footer className='py-5 text-center'>
+			<Footer className='py-3 text-center'>
 				<p>
 					Made with ❤️ by <a href='https://github.com/apopelyshev'>Artem</a>
 				</p>

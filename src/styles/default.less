@@ -1,0 +1,12 @@
+@import (reference) './custom-theme.less';
+
+.wrapper.default {
+	@apply h-full bg-gray-800;
+
+	&.wrong {
+		animation: bg-red 0.8s ease-in;
+	}
+	&.correct {
+		animation: bg-green 0.8s ease-in;
+	}
+}

@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import useToken from './components/util/auth';
 import LoginPage from './views/login';
 import HomePage from './views/home';
+import DefaultPage from './views/default';
 
 const LOGIN_OVERRIDE = true;
 
@@ -30,6 +31,9 @@ export default function App() {
 
 	return (
 		<Router>
+			<Route path='/'>
+				<DefaultPage />
+			</Route>
 			<Route path='/login'>
 				<LoginPage setToken={setToken} />
 			</Route>

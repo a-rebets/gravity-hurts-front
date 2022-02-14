@@ -44,6 +44,8 @@ const Start = memo(({ globalModalBlocking, setGlobalModalBlocking, story }) => {
 	const [drawerShown, setdrawerShown] = useState(false);
 	const [storyLoaded, setstoryLoaded] = useState(false);
 
+	const storyLoadedHandler = useCallback((val) => setstoryLoaded(val), []);
+
 	const openDrawer = useCallback(() => {
 		setdrawerShown(true);
 		setGlobalModalBlocking(true);
@@ -101,7 +103,7 @@ const Start = memo(({ globalModalBlocking, setGlobalModalBlocking, story }) => {
 								source={
 									'https://www.xtrafondos.com/wallpapers/vertical/espacio-estrellas-universo-nebulosa-3337.jpg'
 								}
-								setLoadedCallback={setstoryLoaded}
+								setLoadedCallback={storyLoadedHandler}
 							/>
 						</Suspense>
 						<WaterSwitch

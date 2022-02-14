@@ -1,4 +1,4 @@
-import { lazy, Suspense, useRef, useState } from 'react';
+import { lazy, Suspense, useCallback, useRef, useState } from 'react';
 import { FlexboxGrid, Icon } from 'rsuite';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useSwipeable } from 'react-swipeable';
@@ -6,6 +6,7 @@ import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 
 import 'react-lazy-load-image-component/src/effects/opacity.css';
 import '../../styles/story/story.less';
+import StoryReaction from './StoryReaction';
 
 const TextProvider = lazy(() => import('../util/TextProvider'));
 
@@ -28,6 +29,8 @@ const StoryImage = ({ source, setLoadedCallback }) => {
 	const [textShown, settextShown] = useState(false);
 	const [scaleSet, setscaleSet] = useState(false);
 	const [minScale, setminScale] = useState(1.0);
+
+	const changeTextShown = useCallback((val) => settextShown(val), []);
 
 	const transformRef = useRef(null);
 
@@ -97,7 +100,7 @@ const StoryImage = ({ source, setLoadedCallback }) => {
 			<Suspense fallback={<></>}>
 				<TextProvider
 					shown={textShown}
-					changeShownCallback={settextShown}
+					changeShownCallback={changeTextShown}
 					blurDelta={100}
 					topPanelAutohide
 				>
@@ -177,6 +180,7 @@ const StoryImage = ({ source, setLoadedCallback }) => {
 						vel justo tincidunt nisi auctor blandit id nec arcu. Nullam at
 						consequat mauris, quis blandit dui.
 					</p>
+					<StoryReaction />
 				</TextProvider>
 			</Suspense>
 		</div>

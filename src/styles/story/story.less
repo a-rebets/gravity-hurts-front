@@ -1,3 +1,5 @@
+@import 'reaction.less';
+
 .story-modal {
 	@apply absolute w-full h-full top-0 left-0;
 	clip-path: circle(1rem at 50% 91%);
@@ -37,5 +39,21 @@
 			opacity: 0.3;
 			transform: translateY(0px);
 		}
+	}
+}
+
+.rs-panel.story-reaction {
+	@apply my-8;
+
+	& > div {
+		@apply px-0;
+
+		&.rs-panel-heading {
+			@apply text-center text-lg font-bold;
+		}
+	}
+
+	& > svg {
+		@apply hidden;
 	}
 }

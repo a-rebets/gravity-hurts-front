@@ -1,4 +1,4 @@
-import { Component, createRef } from 'react';
+import { Component } from 'react';
 import { FlexboxGrid, Icon } from 'rsuite';
 import TextProviderModal from './TextProviderModal';
 import '../../styles/util/text-provider.less';
@@ -13,14 +13,26 @@ class TextProvider extends Component {
 	constructor(props) {
 		super(props);
 		this.state = defaultSetting;
-		this.prevScrollY = createRef();
-		this.prevScrollY.current = -1;
 	}
 
 	componentWillUnmount() {
 		if (this.state.scrollEventSet) {
 			this.modalInner.removeEventListener('scroll', this.handleScroll);
 		}
+	}
+
+	shouldComponentUpdate(nextProps, nextState) {
+		const propsCheck = nextProps.shown !== this.props.shown;
+		const stateCheck = this.stateUpdateCheck(nextState);
+		return propsCheck || stateCheck;
+	}
+
+	stateUpdateCheck(nextState) {
+		return (
+			nextState.blurLevel !== this.state.blurLevel ||
+			nextState.scrollEventSet !== this.state.scrollEventSet ||
+			nextState.topPanelVisible !== this.state.topPanelVisible
+		);
 	}
 
 	initContentElementRef = (el) => {
@@ -61,16 +73,12 @@ class TextProvider extends Component {
 
 	handleScroll = (e) => {
 		const currScrollY = e.target.scrollTop + (this.props.blurDelta || 0);
-		if (this.prevScrollY.current !== currScrollY) {
-			const proportion = currScrollY / (0.5 * window.innerHeight);
-			const newLevel = 2 * Math.floor((proportion * 8) / 2);
-			if (newLevel !== this.state.blurLevel && newLevel >= 0) {
-				if (newLevel <= 8) {
-					this.setState({ blurLevel: newLevel });
-				}
-				this.switchTopPanel(newLevel);
-			}
-			this.prevScrollY.current = currScrollY;
+		const proportion = currScrollY / (0.5 * window.innerHeight);
+		let newLevel = 2 * Math.floor((proportion * 8) / 2);
+		this.switchTopPanel(newLevel);
+		newLevel = newLevel <= 8 ? newLevel : 8;
+		if (newLevel !== this.state.blurLevel && newLevel >= 0) {
+			this.setState({ blurLevel: newLevel });
 		}
 	};
 
@@ -83,20 +91,19 @@ class TextProvider extends Component {
 	};
 
 	render() {
-		const topPanelClassAdded = this.props.topPanelAutohide
-			? `autohide ${this.state.topPanelVisible ? 'shown' : ''}`
-			: '';
-
 		return (
 			<TextProviderModal
 				contentElRef={this.initContentElementRef}
+				autohide={this.props.topPanelAutohide ? 'autohide' : ''}
 				isOpen={this.props.shown}
 				openCallback={this.requestOpen}
 				blurLevel={this.state.blurLevel}
 			>
 				<FlexboxGrid
 					justify='center'
-					className={`text-provider-panel top-panel ${topPanelClassAdded}`}
+					className={`text-provider-panel top-panel ${
+						this.state.topPanelVisible ? 'shown' : ''
+					}`}
 				>
 					<FlexboxGrid.Item>
 						<h5>Upper panel</h5>

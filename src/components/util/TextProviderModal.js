@@ -3,6 +3,8 @@ import Modal from 'react-modal';
 Modal.setAppElement('#root');
 
 export default function TextProviderModal(props) {
+	const addedContentClass = `${props.autohide} modal-blur-${props.blurLevel}`;
+
 	return (
 		<Modal
 			isOpen={props.isOpen}
@@ -33,7 +35,7 @@ export default function TextProviderModal(props) {
 				<div
 					{...{
 						...contentProps,
-						className: `${contentProps.className} modal-blur-${props.blurLevel}`,
+						className: `${contentProps.className} ${addedContentClass}`,
 					}}
 				>
 					{children}

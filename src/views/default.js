@@ -14,7 +14,7 @@ function DefaultPage() {
 	return (
 		<Container className='wrapper default'>
 			<Header>
-				<h3 className='text-center pt-10 pb-4'>Привет</h3>
+				<h4 className='text-center pt-8 pb-3'>Привет</h4>
 			</Header>
 			<Content>
 				<FlexboxGrid justify='center' className='py-4'>

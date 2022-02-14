@@ -42,7 +42,7 @@ const Timer = () => {
 
 	return timerComponents.length ? (
 		<Panel className='text-center'>
-			<p className='text-center py-3 text-base'>Заходи сюда через:</p>
+			<p className='text-center pb-3 text-base'>Заходи сюда через:</p>
 			{timerComponents}
 		</Panel>
 	) : (
